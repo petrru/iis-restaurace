@@ -1,12 +1,123 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: peta
- * Date: 24.11.17
- * Time: 12:09
- */
 
-class Model
-{
+class Model {
+    protected $columns = [];
+    protected $primary_key;
+    protected $table_name;
+    protected $save_changes = false;
+    protected $changed_fields = [];
 
+    public function select($sql) {
+        $q = DB::prepare($sql);
+        $q->setFetchMode(PDO::FETCH_INTO, $this);
+        return $q;
+    }
+
+    public static function get_by_id($id) {
+        $out = new static();
+        if ($id == 'new')
+            return $out;
+        $sql = 'SELECT `' . implode('`, `', $out->columns) . '`';
+        $sql .= " FROM `{$out->table_name}` WHERE `{$out->primary_key}` = ?";
+        $q = $out->select($sql);
+        $q->bindValue(1, $id, PDO::PARAM_INT);
+        $q->execute();
+        if (!$q->rowCount())
+            throw new NoEntryException();
+        $q->fetch();
+        return $out;
+    }
+
+    public function has_id($id) {
+        $sql = 'SELECT `' . $this->primary_key . '`';
+        $sql .= " FROM `{$this->table_name}` WHERE `{$this->primary_key}` = ?";
+        $q = $this->select($sql);
+        $q->bindValue(1, $id, PDO::PARAM_INT);
+        $q->execute();
+        return $q->rowCount();
+    }
+
+    public function get_primary_key() {
+        return $this->primary_key;
+    }
+
+    public function get_id() {
+        $pk = $this->primary_key;
+        return $this->$pk;
+    }
+
+    public function begin_update() {
+        $this->save_changes = true;
+        $this->changed_fields = [];
+    }
+
+    public function __set($name, $value) {
+        if ($this->save_changes && in_array($name, $this->columns)) {
+            $this->changed_fields[$name] = $value;
+        }
+        $this->$name = $value;
+    }
+
+    public function __get($name) {
+        return $this->$name;
+    }
+
+    public function save() {
+        $first = true;
+        if ($this->get_id()) {
+            // Existuje ID --> UPDATE
+            $sql = "UPDATE `$this->table_name` SET ";
+            foreach ($this->changed_fields as $key => $val) {
+                if ($first) {
+                    $first = false;
+                }
+                else {
+                    $sql .= ", ";
+                }
+                $sql .= "`$key` = :$key";
+            }
+            $sql .= " WHERE `{$this->primary_key}` = :_pk";
+            $this->changed_fields['_pk'] = $this->get_id();
+        }
+        else {
+            // Není ID --> INSERT INTO
+            $sql = "INSERT INTO `$this->table_name` (";
+            $values = ") VALUES (";
+            foreach ($this->changed_fields as $key => $val) {
+                if ($first) {
+                    $first = false;
+                }
+                else {
+                    $sql .= ", ";
+                    $values .= ", ";
+                }
+                $sql .= "`$key`";
+                $values .= ":$key";
+            }
+            $sql .= $values . ")";
+        }
+        $q = DB::prepare($sql);
+        $q->execute($this->changed_fields);
+        if (!$this->get_id()) {
+            $pk = $this->primary_key;
+            $this->$pk = DB::lastInsertId();
+        }
+        //var_dump($q->errorInfo());
+        $this->changed_fields = [];
+        $this->save_changes = false;
+        if ($q->errorCode() == 23000) {
+            preg_match("/^.+'(.*)'[^']+'(.+)'$/", $q->errorInfo()[2], $rep);
+            return $rep;
+        }
+        return $q->errorCode() == 0;
+    }
+
+    public function delete() {
+        $sql = "DELETE FROM `{$this->table_name}`
+                WHERE `{$this->primary_key}` = ?";
+        $q = $this->select($sql);
+        $q->bindValue(1, $this->get_id(), PDO::PARAM_INT);
+        $q->execute();
+        return $q->rowCount();
+    }
 }

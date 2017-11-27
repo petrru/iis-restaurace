@@ -1,7 +1,4 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: peta
- * Date: 23.11.17
- * Time: 23:20
- */
+<div class="main_image">
+    <!--Source: https://pixabay.com/en/ -->
+    <img src="mainimage.jpg">
+</div>

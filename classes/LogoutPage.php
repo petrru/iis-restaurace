@@ -1,33 +1,32 @@
 <?php
-class LoginPage extends Page
+class LogoutPage extends Page
 {
     public function get_title()
     {
-        //$_SESSION['employee_id'] = 1;
-        return 'Prihlásiť sa';
-    }
-
-    public function print_content()
-    {
-        include "inc/content/login.php";
+        return '';
     }
 
     public function get_menu()
     {
-        return new PublicMenu('login');
+        return new PublicMenu('');
     }
 
     public function should_print_html()
     {
-        if (!empty($_SESSION['employee_id'])) {
-            header("Location:manage/");
-            return false;
-        }
-        if ($_POST) {
-            // TODO
-        }
-        return true;
+        unset($_SESSION['employee_id']);
+        Utils::redirect('login');
+        Utils::set_success_message('Byl jste úspěšně odhlášen');
+        return false;
     }
 
 
+    public function print_content()
+    {
+
+    }
+
+    public function check_privileges($position_id)
+    {
+        return true;
+    }
 }

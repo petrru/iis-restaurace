@@ -1,12 +1,30 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: peta
- * Date: 23.11.17
- * Time: 22:35
- */
 
-class StaticPage
+class StaticPage extends Page
 {
+    private $titles = [
+        "" => "Hlavná stránka",
+        "about" => "O nás",
+        "contact" => "Kontakt",
+    ];
 
+    public function get_title()
+    {
+        return $this->titles[$this->url];
+    }
+
+    public function print_content()
+    {
+        include_once "inc/content/" . ($this->url ?: "main") . ".php";
+    }
+
+    public function get_menu()
+    {
+        return new PublicMenu($this->url);
+    }
+
+    public function check_privileges($position_id)
+    {
+        return true;
+    }
 }

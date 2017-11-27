@@ -1,0 +1,4 @@
+RewriteEngine on
+RewriteRule ^([a-z-0-9/]*)$ page.php?q=$1 [L,QSA,NC]
+ErrorDocument 403 /iis/page.php?q=not-found
+ErrorDocument 404 /iis/page.php?q=not-found

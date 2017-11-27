@@ -1,6 +1,6 @@
 <?php
 
-class AdminHome extends Page
+class AdminHomePage extends Page
 {
 
     public function get_title()
@@ -16,5 +16,10 @@ class AdminHome extends Page
     public function get_menu()
     {
         return new AdminMenu('');
+    }
+
+    public function check_privileges($position_id)
+    {
+        return $position_id >= 1;
     }
 }

@@ -1,19 +1,24 @@
 <?php
-class LoginPage extends Page
+class RegisterPage extends Page
 {
 
     public function get_title()
     {
-        return 'Prihlásiť sa';
+        return 'Registrace';
     }
 
     public function print_content()
     {
-        include "inc/content/login.php";
+        include "inc/content/register.php";
     }
 
     public function get_menu()
     {
-        return new Menu('login');
+        return new PublicMenu('login');
+    }
+
+    public function check_privileges($position_id)
+    {
+        return false;
     }
 }

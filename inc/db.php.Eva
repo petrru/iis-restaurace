@@ -1,0 +1,4 @@
+<?php
+$db_conn_str = "mysql:dbname=xrusin03;unix_socket=/var/run/mysql/mysql.sock;charset=utf8mb4";
+$db_username = "xrusin03";
+$db_password = "";

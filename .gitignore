@@ -1,1 +1,4 @@
 .idea
+/.htaccess
+inc/db.php
+inc/root

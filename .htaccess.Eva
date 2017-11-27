@@ -1,0 +1,7 @@
+DefaultCharset utf-8
+AddHandler application/x-httpd-php70 .php
+RewriteEngine on
+RewriteBase /~xrusin03/iis/
+RewriteRule ^([a-z/0-9-]*)$ page.php?q=$1 [L,NC,QSA]
+ErrorDocument 403 /~xrusin03/iis/page.php?q=not-found
+ErrorDocument 404 /~xrusin03/iis/page.php?q=not-found

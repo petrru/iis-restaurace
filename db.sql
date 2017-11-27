@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Počítač: localhost
--- Vytvořeno: Čtv 19. říj 2017, 20:32
--- Verze serveru: 5.7.19-0ubuntu0.16.04.1
+-- Vytvořeno: Pon 27. lis 2017, 20:12
+-- Verze serveru: 5.7.20-0ubuntu0.16.04.1
 -- Verze PHP: 7.0.22-0ubuntu0.16.04.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -55,28 +55,30 @@ CREATE TABLE `employees` (
   `first_name` varchar(50) COLLATE utf8mb4_czech_ci NOT NULL,
   `last_name` varchar(50) COLLATE utf8mb4_czech_ci NOT NULL,
   `phone_number` int(11) DEFAULT NULL,
-  `email` varchar(100) COLLATE utf8mb4_czech_ci NOT NULL,
-  `birth_number` decimal(10,0) NOT NULL,
+  `email` varchar(100) COLLATE utf8mb4_czech_ci DEFAULT NULL,
+  `birth_number` decimal(10,0) DEFAULT NULL,
   `position_id` int(11) NOT NULL,
-  `salary` int(11) NOT NULL,
-  `bank_account_prefix` int(11) NOT NULL,
-  `bank_account` decimal(10,0) NOT NULL,
-  `bank_code` smallint(6) NOT NULL,
-  `street_name` varchar(50) COLLATE utf8mb4_czech_ci NOT NULL,
-  `street_number` int(11) NOT NULL,
-  `city` varchar(50) COLLATE utf8mb4_czech_ci NOT NULL,
-  `zip` int(11) NOT NULL
+  `salary` int(11) DEFAULT NULL,
+  `bank_account_prefix` int(11) DEFAULT NULL,
+  `bank_account` decimal(10,0) DEFAULT NULL,
+  `bank_code` smallint(6) DEFAULT NULL,
+  `street_name` varchar(50) COLLATE utf8mb4_czech_ci DEFAULT NULL,
+  `street_number` int(11) DEFAULT NULL,
+  `city` varchar(50) COLLATE utf8mb4_czech_ci DEFAULT NULL,
+  `zip` int(11) DEFAULT NULL,
+  `username` varchar(40) COLLATE utf8mb4_czech_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_czech_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
 
 --
 -- Vypisuji data pro tabulku `employees`
 --
 
-INSERT INTO `employees` (`employee_id`, `first_name`, `last_name`, `phone_number`, `email`, `birth_number`, `position_id`, `salary`, `bank_account_prefix`, `bank_account`, `bank_code`, `street_name`, `street_number`, `city`, `zip`) VALUES
-(1, 'Tamara', 'Krestianková', 777888999, 'tamara@example.com', '9551010007', 1, 40000, 668, '123456796', 100, 'Falešná', 1, 'Brno', 60001),
-(2, 'Petr', 'Rusiňák', NULL, 'petr@example.com', '9502090070', 1, 40000, 9769, '1000000005', 2700, 'Nová', 13, 'Brno', 60001),
-(3, 'Pepa', 'Novák', 776776776, 'pepa@example.com', '8002021863', 2, 18000, 0, '784319', 3030, 'Husitská', 459, 'Pardubice', 53001),
-(4, 'Hana', 'Nováková', NULL, 'hana@example.com', '8551111558', 2, 18000, 0, '784319', 3030, 'Husitská', 459, 'Pardubice', 53001);
+INSERT INTO `employees` (`employee_id`, `first_name`, `last_name`, `phone_number`, `email`, `birth_number`, `position_id`, `salary`, `bank_account_prefix`, `bank_account`, `bank_code`, `street_name`, `street_number`, `city`, `zip`, `username`, `password`) VALUES
+(1, 'Tamara', 'Krestianková', 777888999, 'tamara@example.com', '9551010007', 1, 40000, 668, '123456796', 100, 'Falešná', 1, 'Brno', 60001, 'tami', '$2y$10$jAdsTbZH.wxHhBm4NqBOXOisrpXD0zRmbGTwufOKCwyNiWi7hM9mq'),
+(2, 'Petr', 'Rusiňák', NULL, 'petr@example.com', '9502090070', 1, 40000, 9769, '1000000005', 2700, 'Nová', 13, 'Brno', 60001, 'peta', '$2y$10$2kv7hhxF1L70S4KyHujgEucqUvSJ5Vzqs6tLCjyWHcjVkv4.tMsyq'),
+(3, 'Pepa', 'Novák', 776776776, 'pepa@example.com', '8002021863', 3, 18000, 0, '784319', 3030, 'Husitská', 459, 'Pardubice', 53001, 'pepa', ''),
+(4, 'Hana', 'Nováková', NULL, 'hana@example.com', '8551111558', 3, 18000, 0, '784319', 3030, 'Husitská', 459, 'Pardubice', 53001, 'hana', '$2y$10$OaNo1pXz4FaCAxSaPRtFguCXOlY8pFjXwl9BipFdn9gGnTXNhPzZS');
 
 -- --------------------------------------------------------
 
@@ -153,7 +155,7 @@ INSERT INTO `ingredients_in_items` (`ingredience_id`, `item_id`, `amount`) VALUE
 DROP TABLE IF EXISTS `items`;
 CREATE TABLE `items` (
   `item_id` int(11) NOT NULL,
-  `name` varchar(60) COLLATE utf8mb4_czech_ci NOT NULL,
+  `item_name` varchar(60) COLLATE utf8mb4_czech_ci NOT NULL,
   `available` smallint(6) NOT NULL,
   `price` decimal(7,2) NOT NULL,
   `category_id` int(11) NOT NULL
@@ -163,7 +165,7 @@ CREATE TABLE `items` (
 -- Vypisuji data pro tabulku `items`
 --
 
-INSERT INTO `items` (`item_id`, `name`, `available`, `price`, `category_id`) VALUES
+INSERT INTO `items` (`item_id`, `item_name`, `available`, `price`, `category_id`) VALUES
 (1, 'Cibulová', 1, '20.00', 1),
 (2, 'Česneková', 1, '15.00', 1),
 (3, 'Rajská', 1, '20.00', 1),
@@ -206,7 +208,7 @@ INSERT INTO `items` (`item_id`, `name`, `available`, `price`, `category_id`) VAL
 DROP TABLE IF EXISTS `item_categories`;
 CREATE TABLE `item_categories` (
   `category_id` int(11) NOT NULL,
-  `name` varchar(50) COLLATE utf8mb4_czech_ci NOT NULL,
+  `category_name` varchar(50) COLLATE utf8mb4_czech_ci NOT NULL,
   `menu_order` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
 
@@ -214,7 +216,7 @@ CREATE TABLE `item_categories` (
 -- Vypisuji data pro tabulku `item_categories`
 --
 
-INSERT INTO `item_categories` (`category_id`, `name`, `menu_order`) VALUES
+INSERT INTO `item_categories` (`category_id`, `category_name`, `menu_order`) VALUES
 (1, 'Polévky', 1),
 (2, 'Nealkoholické nápoje', 21),
 (3, 'Alkoholické nápoje', 20),
@@ -291,16 +293,17 @@ INSERT INTO `orders` (`order_id`, `date_created`, `paid`, `table_number`, `reser
 DROP TABLE IF EXISTS `positions`;
 CREATE TABLE `positions` (
   `position_id` int(11) NOT NULL,
-  `name` varchar(60) COLLATE utf8mb4_czech_ci NOT NULL
+  `position_name` varchar(60) COLLATE utf8mb4_czech_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
 
 --
 -- Vypisuji data pro tabulku `positions`
 --
 
-INSERT INTO `positions` (`position_id`, `name`) VALUES
-(1, 'Vedoucí'),
-(2, 'Číšník');
+INSERT INTO `positions` (`position_id`, `position_name`) VALUES
+(1, 'Majitel'),
+(2, 'Vedoucí'),
+(3, 'Číšník');
 
 -- --------------------------------------------------------
 
@@ -396,6 +399,7 @@ ALTER TABLE `customers`
 --
 ALTER TABLE `employees`
   ADD PRIMARY KEY (`employee_id`),
+  ADD UNIQUE KEY `username` (`username`),
   ADD UNIQUE KEY `email` (`email`),
   ADD UNIQUE KEY `birth_number` (`birth_number`),
   ADD KEY `position_id` (`position_id`);
@@ -480,7 +484,7 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT pro tabulku `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT pro tabulku `ingredients`
 --
@@ -505,7 +509,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT pro tabulku `positions`
 --
 ALTER TABLE `positions`
-  MODIFY `position_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `position_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pro tabulku `reservations`
 --
@@ -524,7 +528,7 @@ ALTER TABLE `rooms`
 -- Omezení pro tabulku `employees`
 --
 ALTER TABLE `employees`
-  ADD CONSTRAINT `employees_ibfk_1` FOREIGN KEY (`position_id`) REFERENCES `positions` (`position_id`);
+  ADD CONSTRAINT `employees_ibfk_1` FOREIGN KEY (`position_id`) REFERENCES `positions` (`position_id`) ON UPDATE CASCADE;
 
 --
 -- Omezení pro tabulku `ingredients_in_items`

@@ -1,7 +1,5 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: peta
- * Date: 23.11.17
- * Time: 23:30
- */
+<div class="container">
+    <h3>Stránka nenalezena</h3>
+
+    Sorry jako, tady nic není.
+</div>

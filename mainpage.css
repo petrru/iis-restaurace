@@ -12,22 +12,22 @@ body {
   border-bottom-style: solid;
   border-width: thin;
 }
-.mainmenu {
+.main_menu {
   text-align: left;
   height: 50px;
 }
-.mainmenu a {
+.main_menu a {
   text-decoration: none;
   font-size: 20px;
   color: #797f7b;
 }
-.mainmenu ul {
+.main_menu ul {
   text-align: center;
     list-style-type: none;
     margin: 0;
     padding: 0;
 }
-.mainmenu li {
+.main_menu li {
   display: inline;
   margin-left: 15px;
   margin-right: 15px;
@@ -55,7 +55,7 @@ body {
   text-decoration: none;
   color: #f0f0f0;
 }
-.column {
+.column_33 {
   float: left;
   text-align: center;
   width: 33.33%;
