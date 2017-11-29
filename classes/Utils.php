@@ -2,9 +2,9 @@
 
 class Utils
 {
-    public static $PRIV_OWNER = 1;
+    public static $PRIV_OWNER = 3;
     public static $PRIV_BOSS = 2;
-    public static $PRIV_WAITER = 3;
+    public static $PRIV_WAITER = 1;
 
     /**
      * @var Employee
