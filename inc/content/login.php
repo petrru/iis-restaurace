@@ -4,10 +4,17 @@
 </div>
 <?php unset($_SESSION['invalid_password']); endif; ?>
 
+<?php
+    echo "ahoj";
+    echo $_POST["password"] ?? "";
+
+?>
+
 <div class="login_form">
     <form action="login" method="post">
         <!-- <form action="/action_page.php"> -->
         Prihlasovacie meno:<br>
+
         <input type="text" name="username" value="<?php
             echo $_POST['username'] ?? ''; ?>"><br>
         Heslo:<br>

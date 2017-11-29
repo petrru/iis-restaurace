@@ -6,6 +6,7 @@ class Model {
     protected $table_name;
     protected $save_changes = false;
     protected $changed_fields = [];
+    protected $is_new = true;
 
     public function select($sql) {
         $q = DB::prepare($sql);
@@ -43,6 +44,8 @@ class Model {
 
     public function get_id() {
         $pk = $this->primary_key;
+        if (is_array($pk))
+            $pk = $pk[0];
         return $this->$pk;
     }
 
@@ -62,9 +65,15 @@ class Model {
         return $this->$name;
     }
 
+    public function is_new() {
+        if (!is_array($this->primary_key))
+            return !$this->get_id();
+        return $this->is_new;
+    }
+
     public function save() {
         $first = true;
-        if ($this->get_id()) {
+        if (!$this->is_new()) {
             // Existuje ID --> UPDATE
             $sql = "UPDATE `$this->table_name` SET ";
             foreach ($this->changed_fields as $key => $val) {
@@ -95,10 +104,11 @@ class Model {
                 $values .= ":$key";
             }
             $sql .= $values . ")";
+            $this->is_new = false;
         }
         $q = DB::prepare($sql);
         $q->execute($this->changed_fields);
-        if (!$this->get_id()) {
+        if (!$this->get_id() and !is_array($this->primary_key)) {
             $pk = $this->primary_key;
             $this->$pk = DB::lastInsertId();
         }
