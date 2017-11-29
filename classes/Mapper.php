@@ -14,6 +14,9 @@ class Mapper
         ["^manage/employees$", EmployeesPage::class],
         ["^manage/employees/([0-9]+|new)$", EmployeePage::class],
         ["^manage/employees/([0-9]+)/delete$", DeleteEmployeePage::class],
+        ["^manage/menu$", ItemsPage::class],
+        ["^manage/menu/([0-9]+|new)$", ItemPage::class],
+        ["^manage/menu/([0-9]+)/delete$", DeleteItemPage::class],
         [".*", NotFoundPage::class]
     ];
 

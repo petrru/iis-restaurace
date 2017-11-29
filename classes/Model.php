@@ -105,11 +105,11 @@ class Model {
         //var_dump($q->errorInfo());
         $this->changed_fields = [];
         $this->save_changes = false;
-        if ($q->errorCode() == 23000) {
+        if ($q->errorInfo()[1] == 23000) {
             preg_match("/^.+'(.*)'[^']+'(.+)'$/", $q->errorInfo()[2], $rep);
             return $rep;
         }
-        return $q->errorCode() == 0;
+        return $q->errorInfo()[1] == 0;
     }
 
     public function delete() {

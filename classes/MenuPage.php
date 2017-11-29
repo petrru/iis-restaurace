@@ -2,6 +2,7 @@
 
 class MenuPage extends Page
 {
+    protected $only_available = true;
 
     public function get_title()
     {
@@ -11,8 +12,11 @@ class MenuPage extends Page
     public function print_content()
     {
         echo '<div class="container row">';
-        $sql = "SELECT item_name, category_name, price, category_id FROM items
-                NATURAL JOIN item_categories WHERE available = 1
+        $only_available = $this->only_available ? 'WHERE available = 1' : '';
+        $sql = "SELECT item_id, item_name, category_name, price, category_id,
+                available
+                FROM items
+                NATURAL JOIN item_categories $only_available
                 ORDER BY menu_order, item_name";
 
         $item = new Item;
@@ -28,17 +32,30 @@ class MenuPage extends Page
                 echo "<div class='column_50'>";
                 echo "<h3>{$item->category_name}</h3>\n";
                 echo "<table class='menu_table striped'>\n";
-                echo "<thead><tr><th>Název</th><th>Cena</th></tr></thead>\n";
-                echo "<tbody>\n";
+                echo "<thead>\n<tr><th>";
+                echo implode('</th><th>', $this->get_header());
+                echo "</th></tr>\n</thead>\n<tbody>\n";
                 $last_category = $item->category_id;
             }
 
-            $price = $item->price;
-            echo "<tr><td>{$item->item_name}</td><td>$price Kč</td></tr>\n";
+            echo "<tr><td>" . implode('</td><td>', $this->get_row($item))
+               . "</td></tr>\n";
         }
 
         echo '</tbody></table></div>';
         echo '</div>';
+    }
+
+    protected function get_header() {
+        return ['Název', 'Cena'];
+    }
+
+    /**
+     * @param $item Item
+     * @return array
+     */
+    protected function get_row($item) {
+        return [$item->item_name, "{$item->price} Kč"];
     }
 
     /**

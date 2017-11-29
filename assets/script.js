@@ -3,7 +3,9 @@ $(window).on('load', function () {
         $(this).parent().remove();
     });
     $(".confirm").click(function (e) {
-        if (!confirm("Opravdu chcete " + $(this).html().toLowerCase() + "?")) {
+        var text = $(this).data('confirm-msg') ? $(this).data('confirm-msg')
+                 : $(this).html().toLowerCase();
+        if (!confirm("Opravdu chcete " + text + "?")) {
             e.preventDefault();
         }
     });

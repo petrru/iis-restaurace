@@ -32,8 +32,12 @@ class Form
                 if (!empty($other['do-not-save']))
                     continue;
                 $val = trim($_POST[$key] ?? '');
-                if ($val == '' && empty($other['required']))
+                if ($type == 'checkbox')
+                    $val = isset($_POST[$key]) ? 1 : 0;
+                elseif ($val == '' && empty($other['required']))
                     $val = NULL;
+                elseif ($type == 'number')
+                    $val = str_replace(',', '.', $val);
                 $this->model->$key = $val;
             }
             $this->errors = $validate_func();
@@ -68,6 +72,12 @@ class Form
             if ($type == 'none')
                 continue;
             $value = empty($other['do-not-load']) ? $this->model->$key : '';
+            if ($type == 'checkbox') {
+                echo "<tr><th colspan='2'><label><input type='checkbox' "
+                   . ($value ? "checked='checked' " : "")
+                   . "name='$key'> $label</label></th></tr>";
+                continue;
+            }
             echo "<tr><th>$label:";
             if (!empty($other['required']))
                 echo " <sup class='required_star' title='Povinná položka'>*"
@@ -84,6 +94,8 @@ class Form
                     echo "<input type='$type' name='$key' value='$value'>";
                     break;
                 case "number":
+                    $value = str_replace('.', ',', $value);
+                    $value = preg_replace('/,0+$/', '', $value);
                     echo "<input type='text' name='$key' value='$value'>";
                     break;
                 case "birth_number":
@@ -126,6 +138,9 @@ class Form
 
     private function validate_form() {
         foreach ($this->data as list($key, $label, $type, $other)) {
+            if ($type == 'checkbox') {
+                continue;
+            }
             if (!isset($_POST[$key])) {
                 $this->errors[] = "Nebyla odeslána hodnota $label";
                 continue;
@@ -142,7 +157,7 @@ class Form
                     }
                     break;
                 case 'number':
-                    if (!preg_match("/^[0-9]*$/", $val)) {
+                    if (!preg_match("/^[0-9]*([.,][0-9]*)?$/", $val)) {
                         $this->errors[] = "$label neobsahuje číslo";
                     }
                     break;

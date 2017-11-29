@@ -1,27 +1,16 @@
 <?php
 
-class EmployeePage extends Page
+class EmployeePage extends FormPage
 {
-    /**
-     * @var Employee
-     */
-    private $employee;
+    /** @var Employee */
+    protected $item;
 
-    /**
-     * @var Form
-     */
-    private $form;
+    protected $entity_name = 'zaměstnance';
+    protected $entity_name_plural = 'zaměstnanců';
 
-    /**
-     * @var bool
-     */
-    private $is_new;
-
-    public function init()
+    public function get_data()
     {
-        $this->employee = Employee::get_by_id(explode("/", $this->url)[2]);
-        $this->is_new = !$this->employee->employee_id;
-        $this->form = new Form($this->employee, [
+        return [
             ['first_name', 'Jméno', 'text', ['required' => true]],
             ['last_name', 'Příjmení', 'text', ['required' => true]],
             ['email', 'E-mail', 'email', []],
@@ -34,8 +23,8 @@ class EmployeePage extends Page
             ['salary', 'Plat', 'number', ['after' => 'Kč']],
             ['bank_account', 'Bankovní účet', 'bank', [
                 'prefix' => $_POST['bank_account_prefix'] ??
-                            $this->employee->bank_account_prefix,
-                'code' => $_POST['bank_code'] ?? $this->employee->bank_code]],
+                            $this->item->bank_account_prefix,
+                'code' => $_POST['bank_code'] ?? $this->item->bank_code]],
             ['bank_account_prefix', '', 'none', ''],
             ['bank_code', '', 'none', ''],
             ['street_name', 'Ulice', 'text', []],
@@ -49,7 +38,7 @@ class EmployeePage extends Page
             ['password-2', 'Přihlašovací heslo (znovu)', 'password',
                 ['do-not-save' => true, 'do-not-load' => true,
                  'required' => $this->is_new]],
-        ], [$this, 'validate']);
+        ];
     }
 
     public function should_print_html() {
@@ -67,31 +56,12 @@ class EmployeePage extends Page
         }
     }
 
-
-    public function get_title()
+    public function to_string()
     {
-        if (!$this->employee->employee_id)
-            return "Nový zaměstnanec - Správa zaměstnanců";
-        $e = $this->employee;
-        return "{$e->first_name} {$e->last_name} - Správa zaměstnanců";
-    }
-
-    public function print_content()
-    {
-        echo '<div class="container"><h3>';
-        echo $this->employee->employee_id ? 'Upravit' : 'Přidat';
-        echo ' zaměstnance</h3>';
-        $this->form->print_form();
-        echo "<ul>";
-        if ($this->employee->employee_id) {
-            $id = $this->employee->employee_id;
-            echo "<li><a href='manage/employees/$id/delete' class='confirm'>"
-                ."Odstranit zaměstnance</a></li>";
-        }
-        echo "<li><a href='manage/employees'>"
-            ."Zpět na seznam zaměstnanců</a></li>";
-        echo "</ul>";
-        echo '</div>';
+        if ($this->is_new)
+            return "Nový zaměstnanec";
+        $e = $this->item;
+        return "{$e->first_name} {$e->last_name}";
     }
 
     /**
@@ -103,7 +73,7 @@ class EmployeePage extends Page
     }
 
     public function validate() {
-        $e = $this->employee;
+        $e = $this->item;
         $e->employee_id;
         $errors = [];
         if (!preg_match("/^[0-9]*$/", $e->bank_account_prefix)
@@ -143,4 +113,18 @@ class EmployeePage extends Page
     }
 
 
+    protected function get_links()
+    {
+        return ["<a href='manage/employees'>Zpět na seznam zaměstnanců</a>"];
+    }
+
+    protected function get_delete_url()
+    {
+        return $this->item->get_delete_url();
+    }
+
+    protected function get_item($id)
+    {
+        return Employee::get_by_id($id);
+    }
 }

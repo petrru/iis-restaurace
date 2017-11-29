@@ -1,8 +1,13 @@
 <?php
 
+/**
+ * Class Position
+ * @property $position_id
+ * @property $position_name
+ */
 class Position extends Model
 {
-    public $position_id, $position_name;
+    protected $position_id, $position_name;
 
     protected $columns = ['position_id', 'position_name'];
     protected $primary_key = 'position_id';

@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * Class Employee
  * @property $employee_id
  * @property $first_name
  * @property $last_name
@@ -54,5 +55,9 @@ class Employee extends Model
 
     public function get_edit_url() {
         return 'manage/employees/' . $this->employee_id;
+    }
+
+    public function get_delete_url() {
+        return 'manage/employees/' . $this->employee_id . '/delete';
     }
 }

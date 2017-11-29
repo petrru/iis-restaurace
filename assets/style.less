@@ -188,7 +188,11 @@ table.striped {
     // Cena (hlavička i tělo tabulky)
     &:nth-child(2) {
       text-align: right;
-      width: 110px;
+      width: 105px;
+    }
+    // Editace + smazání
+    &:nth-child(3)/*, &:nth-child(4)*/ {
+      width: 2*18px;
     }
   }
 }
@@ -283,4 +287,8 @@ table.striped {
     position: relative;
     top: 2px;
   }
+}
+
+.add_item_btn {
+  text-align: center;
 }

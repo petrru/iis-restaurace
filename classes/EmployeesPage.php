@@ -35,7 +35,8 @@ class EmployeesPage extends Page
                 $e->username,
                 $e->position_name,
                 $e->get_salary(),
-                "<a href='{$e->get_edit_url()}'><i class='material-icons'>mode_edit</i></a>"
+                "<a href='{$e->get_edit_url()}'><i class='material-icons'>"
+                    ."mode_edit</i></a>"
             ]);
             echo "</td></tr>";
         }
