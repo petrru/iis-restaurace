@@ -327,3 +327,6 @@ table.striped th {
 .clear {
   clear: both;
 }
+.info {
+  text-align: center;
+}
