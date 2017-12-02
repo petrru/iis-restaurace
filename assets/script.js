@@ -1,5 +1,5 @@
 $(window).on('load', function () {
-    $(".success_message .close").click(function () {
+    $(".success_message .close, .error_message .close").click(function () {
         $(this).parent().remove();
     });
     $(".confirm").click(function (e) {
@@ -9,4 +9,14 @@ $(window).on('load', function () {
             e.preventDefault();
         }
     });
+    $(".modal .close").click(function () {
+        $(this).parents(".modal").hide();
+    });
 });
+
+function get_location(append) {
+    var url = location.href;
+    if (url.slice(-1) === '/')
+        return url + append;
+    return url + '/' + append;
+}

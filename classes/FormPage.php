@@ -38,19 +38,24 @@ abstract class FormPage extends Page
 
     public function print_content()
     {
-        echo '<div class="container"><h3>';
+        echo '<div class="container">';
+        $this->print_form();
+        echo '</div>';
+    }
+
+    protected function print_form() {
+        echo '<h3>';
         echo $this->is_new ? 'Přidat' : 'Upravit';
         echo " {$this->entity_name}</h3>";
         $this->form->print_form();
         echo "<ul>";
         if (!$this->is_new) {
             echo "<li><a href='{$this->get_delete_url()}'"
-               . " class='confirm'>Odstranit {$this->entity_name} "
-               . $this->to_string() . "</a></li>";
+                . " class='confirm'>Odstranit {$this->entity_name} "
+                . $this->to_string() . "</a></li>";
         }
         echo "<li>" . implode("</li><li>", $this->get_links()) . "</li>";
         echo "</ul>";
-        echo '</div>';
     }
 
     public function get_title()

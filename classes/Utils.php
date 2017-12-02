@@ -39,4 +39,10 @@ class Utils
     public static function redirect($url) {
         header('Location: ' . Mapper::url($url));
     }
+
+    public static function print_modal($id, $header, $body) {
+        echo "<div class='modal' id='$id'><div>"
+            ."<i class='material-icons close' title='Zavřít'>close</i>"
+            ."<h3>$header</h3>$body</div></div>";
+    }
 }

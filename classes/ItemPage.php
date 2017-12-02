@@ -2,6 +2,8 @@
 
 class ItemPage extends FormPage
 {
+    protected $extra_script = 'item.js';
+
     /** @var Item */
     protected $item;
 
@@ -41,6 +43,56 @@ class ItemPage extends FormPage
         return ["<a href='manage/menu'>Zpět na menu</a>"];
     }
 
+    public function print_content()
+    {
+        echo '<div class="container">';
+        echo '<div class="column_80 left">';
+        $this->print_form();
+        echo '</div>';
+        echo '<div class="column_20 left">';
+        echo "<h4>Ingredience</h4>";
+        $this->print_ingredience();
+        echo '</div>';
+        echo '</div>';
+        echo "<div class='clear'></div>";
+        $body = "<form id='in-form'>"
+              . "<span class='label'>Název ingredience:</span>"
+              . "<select id='in-name'>";
+        $in = new Ingredience();
+        $q = $in->select("SELECT * FROM ingredients ORDER BY ingredience_name");
+        $q->execute();
+        while ($q->fetch()) {
+            $body .= "<option value='{$in->ingredience_id}' "
+                  .  "data-unit='{$in->unit}'>{$in->ingredience_name}</option>";
+        }
+        $body .= "</select><br>"
+              .  "<span class='label'>Množství:</span>"
+              .  "<input type='text' id='in-amount'> "
+              .  "<span id='in-unit'></span><br>"
+              .  "<input type='submit' value='Uložit'></form>";
+        Utils::print_modal('edit-ingredient', 'Změna ingredience', $body);
+    }
+
+    private function print_ingredience() {
+        $in = new IngredienceInItem();
+        $q = $in->select("SELECT * FROM ingredients_in_items
+                          NATURAL JOIN ingredients
+                          WHERE item_id = ?
+                          ORDER BY ingredience_name");
+        $q->execute([$this->item->item_id]);
+        echo "<div class='ingredients'>";
+        while ($q->fetch()) {
+            $amount = str_replace('.', ',', $in->amount);
+            $amount = preg_replace("/,?0+$/", "", $amount);
+            echo "<div data-id='{$in->ingredience_id}'>"
+                ."<span class='amount'>$amount</span> {$in->unit} "
+                ."<span class='name'>{$in->ingredience_name}</span>"
+                ."<i class='material-icons edit' title='Editovat'>mode_edit</i>"
+                ."</div>";
+        }
+        echo "</div>";
+    }
+
     protected function get_delete_url()
     {
         return $this->item->get_delete_url();
@@ -53,6 +105,12 @@ class ItemPage extends FormPage
         return $this->item->item_name;
     }
 
+    /**
+     * Najde položku podle ID
+     * @param $id ID položky
+     * @return Item
+     * @throws NoEntryException
+     */
     protected function get_item($id)
     {
         return Item::get_by_id($id);
@@ -63,14 +121,12 @@ class ItemPage extends FormPage
             return true;
         }
         if ($this->is_new) {
-            $_SESSION['success_message'] = 'Záznam byl úspěšně uložen.';
-            header('Location: ' . Mapper::url('manage/menu'));
-            return false;
+            Utils::set_success_message('Záznam byl úspěšně uložen.');
         }
         else {
-            $_SESSION['success_message'] = 'Záznam byl úspěšně upraven.';
-            header('Location: ' . Mapper::url('manage/menu'));
-            return false;
+            Utils::set_success_message('Záznam byl úspěšně upraven.');
         }
+        Utils::redirect('manage/menu');
+        return false;
     }
 }

@@ -3,6 +3,7 @@
 abstract class Page
 {
     protected $url;
+    protected $extra_script = '';
 
     public abstract function get_title();
 
@@ -26,4 +27,9 @@ abstract class Page
     }
 
     public abstract function check_privileges($position_id);
+
+    public function print_extra_assets() {
+        if ($this->extra_script)
+            echo "<script src='assets/{$this->extra_script}'></script>";
+    }
 }

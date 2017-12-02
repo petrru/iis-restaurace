@@ -17,6 +17,7 @@ class Mapper
         ["^manage/menu$", ItemsPage::class],
         ["^manage/menu/([0-9]+|new)$", ItemPage::class],
         ["^manage/menu/([0-9]+)/delete$", DeleteItemPage::class],
+        ["^manage/menu/([0-9]+)/save-ingredients", EditItemPage::class],
         [".*", NotFoundPage::class]
     ];
 

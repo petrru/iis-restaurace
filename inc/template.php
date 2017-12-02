@@ -8,6 +8,7 @@
           rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="assets/script.js"></script>
+    <?php $page->print_extra_assets(); ?>
     <title><?php echo $page->get_title(); ?> - Dos compañeros</title>
 </head>
 
