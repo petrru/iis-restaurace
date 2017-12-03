@@ -1,6 +1,6 @@
 <?php
 
-class Menu
+abstract class Menu
 {
     protected $items;
     private $active_item;
@@ -20,4 +20,6 @@ class Menu
         }
         echo "</ul>";
     }
+
+    public abstract function get_homepage_url();
 }

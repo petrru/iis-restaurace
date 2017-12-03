@@ -14,7 +14,8 @@
 
 <body>
 <div class="name">
-    <h1> · · · ∞ <a href="./">Dos compañeros</a> ∞ · · · </h1>
+    <h1> · · · ∞ <a href="<?php echo $page->get_menu()->get_homepage_url() ?>">
+            Dos compañeros</a> ∞ · · · </h1>
 </div>
 
 

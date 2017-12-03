@@ -14,4 +14,9 @@ class PublicMenu extends Menu
         ];
 
     }
+
+    public function get_homepage_url()
+    {
+        return './';
+    }
 }

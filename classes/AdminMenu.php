@@ -17,4 +17,9 @@ class AdminMenu extends Menu
         $this->items[] = ['logout', 'Odhlásit se'];
 
     }
+
+    public function get_homepage_url()
+    {
+        return './manage';
+    }
 }
