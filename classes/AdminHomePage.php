@@ -10,7 +10,7 @@ class AdminHomePage extends Page
 
     public function print_content()
     {
-        // TODO: Implement print_content() method.
+        include "inc/content/admin.php";
     }
 
     public function get_menu()
