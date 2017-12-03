@@ -19,6 +19,7 @@ class OtherPage extends Page
         }
         if ($priv >= Utils::$PRIV_BOSS) {
             $list[] = ['ingredients', 'Správa ingrediencí'];
+            $list[] = ['categories', 'Správa kategorií v menu'];
         }
         echo "<div class='container'><ul>";
         foreach ($list as list($url, $label)) {

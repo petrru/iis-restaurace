@@ -235,6 +235,20 @@ table.striped th {
 .ingredients_table tr > *:nth-child(4) {
   width: 36px;
 }
+.categories_table {
+  width: 100%;
+}
+.categories_table tr > *:nth-child(1) {
+  width: 70px;
+  text-align: right;
+}
+.categories_table tr > *:nth-child(3) {
+  width: 70px;
+  text-align: right;
+}
+.categories_table tr > *:nth-child(4) {
+  width: 36px;
+}
 .form_table {
   width: 100%;
 }

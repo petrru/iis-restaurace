@@ -26,6 +26,9 @@ class Mapper
         ["^manage/ingredients$", IngredientsPage::class],
         ["^manage/ingredients/([0-9]+|new)$", IngredientPage::class],
         ["^manage/ingredients/([0-9]+)/delete$", DeleteIngredientPage::class],
+        ["^manage/categories$", CategoriesPage::class],
+        ["^manage/categories/([0-9]+|new)$", CategoryPage::class],
+        ["^manage/categories/([0-9]+)/delete$", DeleteCategoryPage::class],
         [".*", NotFoundPage::class]
     ];
 
