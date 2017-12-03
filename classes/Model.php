@@ -39,6 +39,15 @@ class Model {
         return $out;
     }
 
+    public static function get_by_id_or_new($id)
+    {
+        try {
+            return self::get_by_id($id);
+        } catch (NoEntryException $e) {
+            return new static();
+        }
+    }
+
     public function has_id($id=[]) {
         $arr = [];
         $pk_list = implode('` , `', $this->get_primary_key_arr());
@@ -148,6 +157,7 @@ class Model {
         }
         $q = DB::prepare($sql);
         $q->execute($this->changed_fields);
+        //echo $sql;
         //var_dump($q->errorInfo());
         $this->changed_fields = [];
         $this->save_changes = false;
@@ -164,6 +174,8 @@ class Model {
     }
 
     public function delete() {
+        if ($this->is_new)
+            return 0;
         if (!$this->save_changes)
             $this->begin_update();
         $arr = [];

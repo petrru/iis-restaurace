@@ -13,6 +13,8 @@ class AdminMenu extends Menu
         if ($position >= Utils::$PRIV_BOSS) {
             $this->items[] = ['manage/menu', 'Menu'];
         }
+        $this->items[] = ['manage/reservations/current', 'Rezervace'];
+        $this->items[] = ['manage/orders', 'Objednávky'];
         $this->items[] = ['manage/other', 'Ostatní'];
         $this->items[] = ['logout', 'Odhlásit se'];
 

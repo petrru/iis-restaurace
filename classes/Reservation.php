@@ -12,10 +12,13 @@
  */
 class Reservation extends Model
 {
-    protected $reservation_id, $date_created, $date_reserved, $employee_id, $customer_name, $customer_phone, $customer_email;
+    protected $reservation_id, $date_created, $date_reserved, $employee_id,
+        $customer_name, $customer_phone, $customer_email;
 
-    protected $columns = ['reservation_id', 'date_created', 'date_reserved', 'employee_id',
-        'customer_name', 'customer_phone', 'customer_email'];
+    public $seats, $first_name, $last_name;
+
+    protected $columns = ['reservation_id', 'date_created', 'date_reserved',
+        'employee_id', 'customer_name', 'customer_phone', 'customer_email'];
     protected $primary_key = 'reservation_id';
     protected $table_name = 'reservations';
 }

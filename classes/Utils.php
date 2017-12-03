@@ -45,4 +45,11 @@ class Utils
             ."<i class='material-icons close' title='Zavřít'>close</i>"
             ."<h3>$header</h3>$body</div></div>";
     }
+
+    public static function convert_weekday($str) {
+        return preg_replace_callback("/%([0-6])%/", function ($match) {
+            $days = ['Ne', 'Po', 'Út', 'St', 'Čt', 'Pá', 'So'];
+            return $days[$match[1]];
+        }, $str);
+    }
 }

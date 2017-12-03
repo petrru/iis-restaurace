@@ -28,7 +28,7 @@ abstract class FormPage extends Page
      * Najde záznam podle ID záznamu
      *
      * @throws NoEntryException
-     * @param $id ID záznamu
+     * @param $id int ID záznamu
      * @return Item
      */
     protected abstract function get_item($id);

@@ -29,6 +29,10 @@ class Mapper
         ["^manage/categories$", CategoriesPage::class],
         ["^manage/categories/([0-9]+|new)$", CategoryPage::class],
         ["^manage/categories/([0-9]+)/delete$", DeleteCategoryPage::class],
+        ["^manage/reservations/(([0-9]{4}-[0-9]{2})|current)$",
+            ReservationsPage::class],
+        ["^manage/reservations/([0-9]+|new)$", ReservationAdminPage::class],
+        ["^manage/reservations/([0-9]+)/delete$", DeleteReservationPage::class],
         ["^manage/change-password$", ChangePasswordPage::class],
         [".*", NotFoundPage::class]
     ];

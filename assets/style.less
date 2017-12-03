@@ -297,6 +297,31 @@ table.striped {
   }
 }
 
+.reservations_table {
+  width: 100%;
+  tr > * {
+    // Jméno
+    &:nth-child(1) {
+      width: 190px;
+    }
+    &:nth-child(2) {
+    }
+    &:nth-child(3) {
+      width: 100px;
+    }
+    &:nth-child(4) {
+      width: 50px;
+      text-align: right;
+    }
+    &:nth-child(5) {
+      width: 200px;
+    }
+    &:nth-child(6) {
+      width: 2*18px;
+    }
+  }
+}
+
 .form_table {
   width: 100%;
   th {
@@ -402,9 +427,9 @@ table.striped {
     border: 1px solid black;
     min-height: 150px;
     padding: 5px;
-    -webkit-box-shadow: 5px 5px 7px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 5px 5px 7px 0px rgba(0,0,0,0.75);
-    box-shadow: 5px 5px 7px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 5px 5px 7px 0 rgba(0,0,0,0.75);
+    -moz-box-shadow: 5px 5px 7px 0 rgba(0,0,0,0.75);
+    box-shadow: 5px 5px 7px 0 rgba(0,0,0,0.75);
     h3 {
       margin: 3px 0;
       color: @red;
@@ -431,4 +456,8 @@ table.striped {
 
 .info {
   text-align: center;
+}
+
+#year {
+  width: 45px;
 }

@@ -133,6 +133,9 @@ class Form
                     }
                     echo "</select>";
                     break;
+                case "readonly":
+                    echo $value;
+                    break;
             }
             if (isset($other['after']))
                 echo ' ' . $other['after'];
@@ -146,6 +149,9 @@ class Form
 
     private function validate_form() {
         foreach ($this->data as list($key, $label, $type, $other)) {
+            if ($type == 'readonly') {
+                continue;
+            }
             if ($type == 'checkbox') {
                 continue;
             }
