@@ -46,7 +46,12 @@ class ReservationPage extends Page {
             }
 
             if (!preg_match("/^[0-9]*$/", $_POST['people_amount'])) {
-                Utils::set_error_message("Nesprávny počet ľudí");
+                Utils::set_error_message("Nesprávny formát počtu ľudí");
+                return true;
+            }
+
+            if ($_POST['people_amount'] > 8) {
+                Utils::set_error_message("Maximálny počet rezervovaných miest je 8. V prípade záujmu rezervácie väčšieho počtu miest nás, prosíme, kontaktujte.");
                 return true;
             }
 
