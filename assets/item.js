@@ -70,7 +70,7 @@ $(window).on('load', function () {
                     + "<i class='material-icons edit' title='Editovat'>"
                     + "mode_edit</i>"
                     + "</div>";
-                $(".ingredients").append(msg);
+                $(".ingredients .no-items").before(msg);
                 $('#edit-ingredient').hide();
             }
         });

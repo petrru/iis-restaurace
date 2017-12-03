@@ -6,7 +6,7 @@ class RoomPage extends FormPage
     protected $item;
 
     protected $entity_name = 'místnost';
-    protected $entity_name_plural = 'místnosti';
+    protected $entity_name_plural = 'místností';
 
 
     protected function get_data()

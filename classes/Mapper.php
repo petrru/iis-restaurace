@@ -23,6 +23,9 @@ class Mapper
         ["^manage/rooms$", RoomsPage::class],
         ["^manage/rooms/([0-9]+|new)$", RoomPage::class],
         ["^manage/rooms/([0-9]+)/delete$", DeleteRoomPage::class],
+        ["^manage/ingredients$", IngredientsPage::class],
+        ["^manage/ingredients/([0-9]+|new)$", IngredientPage::class],
+        ["^manage/ingredients/([0-9]+)/delete$", DeleteIngredientPage::class],
         [".*", NotFoundPage::class]
     ];
 

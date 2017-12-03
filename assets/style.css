@@ -95,11 +95,11 @@ body {
 .column:not(.left) {
   text-align: center;
 }
-.column_20 {
+.column_25 {
   float: left;
-  width: 20%;
+  width: 25%;
 }
-.column_20:not(.left) {
+.column_25:not(.left) {
   text-align: center;
 }
 .column_33 {
@@ -123,11 +123,11 @@ body {
 .column_66:not(.left) {
   text-align: center;
 }
-.column_80 {
+.column_75 {
   float: left;
-  width: 80%;
+  width: 75%;
 }
-.column_80:not(.left) {
+.column_75:not(.left) {
   text-align: center;
 }
 .row:after {
@@ -221,12 +221,26 @@ table.striped th {
 .rooms_table tr > *:nth-child(4) {
   width: 36px;
 }
+.ingredients_table {
+  width: 100%;
+}
+.ingredients_table tr > *:nth-child(2) {
+  width: 100px;
+  text-align: right;
+}
+.ingredients_table tr > *:nth-child(3) {
+  width: 100px;
+  text-align: right;
+}
+.ingredients_table tr > *:nth-child(4) {
+  width: 36px;
+}
 .form_table {
   width: 100%;
 }
 .form_table th {
   text-align: left;
-  width: 300px;
+  width: 275px;
 }
 .form_table th .required_star {
   font-weight: normal;
@@ -234,7 +248,7 @@ table.striped th {
 .form_table input[type=text],
 .form_table input[type=password],
 .form_table input[type=email] {
-  width: 400px;
+  width: 350px;
 }
 .form_table input[name=bank_account_prefix],
 .form_table input[name=bank_code] {
@@ -301,6 +315,9 @@ table.striped th {
 .ingredients > div .delete {
   float: right;
   cursor: pointer;
+}
+.ingredients div + .no-items {
+  display: none;
 }
 .modal {
   position: fixed;

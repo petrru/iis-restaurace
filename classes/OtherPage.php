@@ -16,7 +16,9 @@ class OtherPage extends Page
         $list[] = ['change-password', 'Změna hesla'];
         if ($priv == Utils::$PRIV_OWNER) {
             $list[] = ['rooms', 'Správa místností'];
-
+        }
+        if ($priv >= Utils::$PRIV_BOSS) {
+            $list[] = ['ingredients', 'Správa ingrediencí'];
         }
         echo "<div class='container'><ul>";
         foreach ($list as list($url, $label)) {

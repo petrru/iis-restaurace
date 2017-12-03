@@ -12,7 +12,7 @@ class Item extends Model
 {
     protected $item_id, $item_name, $available = true, $price, $category_id;
 
-    public $category_name;
+    public $category_name, $amount;
 
     protected $columns = ['item_id', 'item_name', 'available', 'price',
         'category_id'];

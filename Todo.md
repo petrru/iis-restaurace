@@ -1,4 +1,4 @@
-* Správa ingrediencí
+- Správa ingrediencí
 - Přiřazení ingrediencí k menu
 * Přidání / odebrání kategorií jídel
 * Objednávky, placení

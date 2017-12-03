@@ -24,13 +24,23 @@ abstract class FormPage extends Page
         return $this->item->get_delete_url();
     }
 
+    /**
+     * Najde záznam podle ID záznamu
+     *
+     * @throws NoEntryException
+     * @param $id ID záznamu
+     * @return Item
+     */
     protected abstract function get_item($id);
 
     protected abstract function to_string();
 
     public abstract function validate();
 
-
+    /**
+     * Inicializuje formulář a uloží případné změny
+     * @throws NoEntryException
+     */
     public function init()
     {
         $this->item = $this->get_item(explode("/", $this->url)[2]);

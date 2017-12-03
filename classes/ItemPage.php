@@ -10,6 +10,9 @@ class ItemPage extends FormPage
     protected $entity_name = 'jídlo';
     protected $entity_name_plural = 'menu';
 
+    /**
+     * @throws NoEntryException
+     */
     public function init()
     {
         parent::init();
@@ -53,10 +56,10 @@ class ItemPage extends FormPage
     {
         $this->form->print_form_open_element();
         echo '<div class="container">';
-        echo '<div class="column_80 left">';
+        echo '<div class="column_75 left">';
         $this->print_form();
         echo '</div>';
-        echo '<div class="column_20 left">';
+        echo '<div class="column_25 left">';
         echo "<h4>Ingredience</h4>";
         if (!$this->is_new) {
             $this->print_edit_ingredience();
@@ -123,6 +126,7 @@ class ItemPage extends FormPage
                 ."<i class='material-icons edit' title='Editovat'>mode_edit</i>"
                 ."</div>";
         }
+        echo "<div class='no-items'>Žádné ingredience</div>";
         echo "</div>";
         echo "<br><a id='in-new' href='#'>"
             ."<i class='material-icons'>add</i> "
@@ -144,7 +148,7 @@ class ItemPage extends FormPage
 
     /**
      * Najde položku podle ID
-     * @param $id ID položky
+     * @param $id int ID položky
      * @return Item
      * @throws NoEntryException
      */
