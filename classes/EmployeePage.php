@@ -46,12 +46,12 @@ class EmployeePage extends FormPage
             return true;
         }
         if ($this->is_new) {
-            $_SESSION['success_message'] = 'Záznam byl úspěšně uložen.';
-            header('Location: ' . Mapper::url('manage/employees'));
+            Utils::set_success_message('Záznam byl úspěšně uložen.');
+            Utils::redirect('manage/employees');
             return false;
         }
         else {
-            $_SESSION['success_message'] = 'Záznam byl úspěšně upraven.';
+            Utils::set_success_message('Záznam byl úspěšně upraven.');
             return true;
         }
     }

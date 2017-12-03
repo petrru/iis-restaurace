@@ -4,4 +4,4 @@
 * Objednávky, placení
 * Správa rezervací pro zaměstnance (editace, mazání)
 - Správa místností
-* Změna hesla
+- Změna hesla

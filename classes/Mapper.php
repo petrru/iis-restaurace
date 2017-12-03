@@ -29,6 +29,7 @@ class Mapper
         ["^manage/categories$", CategoriesPage::class],
         ["^manage/categories/([0-9]+|new)$", CategoryPage::class],
         ["^manage/categories/([0-9]+)/delete$", DeleteCategoryPage::class],
+        ["^manage/change-password$", ChangePasswordPage::class],
         [".*", NotFoundPage::class]
     ];
 
