@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Počítač: localhost
--- Vytvořeno: Stř 29. lis 2017, 17:05
+-- Vytvořeno: Ned 03. pro 2017, 14:00
 -- Verze serveru: 5.7.20-0ubuntu0.16.04.1
 -- Verze PHP: 7.0.22-0ubuntu0.16.04.1
 
@@ -17,37 +17,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktura tabulky `customers`
---
-
-CREATE TABLE `customers` (
-  `customer_id` int(11) NOT NULL,
-  `first_name` varchar(50) COLLATE utf8mb4_czech_ci NOT NULL,
-  `last_name` varchar(50) COLLATE utf8mb4_czech_ci NOT NULL,
-  `phone_number` int(11) DEFAULT NULL,
-  `email` varchar(100) COLLATE utf8mb4_czech_ci DEFAULT NULL,
-  `card_number` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
-
---
--- Vypisuji data pro tabulku `customers`
---
-
-INSERT INTO `customers` (`customer_id`, `first_name`, `last_name`, `phone_number`, `email`, `card_number`) VALUES
-  (1, 'Jan', 'Novák', NULL, NULL, NULL),
-  (2, 'Petr', 'Starý', NULL, NULL, NULL),
-  (3, 'Martina', 'Falešná', NULL, NULL, 87451),
-  (4, 'Pepa', 'Vomáčka', 775125713, NULL, 4475),
-  (5, 'Lenka', 'Vomáčková', NULL, 'lenka@example.com', 99999),
-  (6, 'Filip', 'Hodný', 457123456, 'filip@seznam.cz', 77889),
-  (7, 'Jan', 'Pospíchal', 800808080, 'jan@example.com', NULL);
-
--- --------------------------------------------------------
-
---
 -- Struktura tabulky `employees`
 --
 
+DROP TABLE IF EXISTS `employees`;
 CREATE TABLE `employees` (
   `employee_id` int(11) NOT NULL,
   `first_name` varchar(50) COLLATE utf8mb4_czech_ci NOT NULL,
@@ -73,9 +46,9 @@ CREATE TABLE `employees` (
 --
 
 INSERT INTO `employees` (`employee_id`, `first_name`, `last_name`, `phone_number`, `email`, `birth_number`, `position_id`, `salary`, `bank_account_prefix`, `bank_account`, `bank_code`, `street_name`, `street_number`, `city`, `zip`, `username`, `password`) VALUES
-  (1, 'Tamara', 'Krestianková', 777888999, 'tamara@example.com', '9551010007', 3, 40000, 668, '123456796', 100, 'Falešná', 1, 'Brno', 60001, 'tami', '$2y$10$jAdsTbZH.wxHhBm4NqBOXOisrpXD0zRmbGTwufOKCwyNiWi7hM9mq'),
+  (1, 'Tamara', 'Krestianková', 777888999, 'tamara@example.com', '9551010007', 3, 40000, 668, '123456796', 100, 'Falešná', 1, 'Brno', 60001, 'tami', '$2y$10$YC8ARlSUvVp0rZd7xlYm9uqVqlJbxbwuhCyjhJx5tAHykcC4Mg/Wq'),
   (2, 'Petr', 'Rusiňák', NULL, 'petr@example.com', '9502090070', 3, 40000, 9769, '1000000005', 2700, 'Nová', 13, 'Brno', 60001, 'peta', '$2y$10$2kv7hhxF1L70S4KyHujgEucqUvSJ5Vzqs6tLCjyWHcjVkv4.tMsyq'),
-  (3, 'Pepa', 'Novák', 776776776, 'pepa@example.com', '8002021863', 1, 18000, 0, '784319', 3030, 'Husitská', 459, 'Pardubice', 53001, 'pepa', ''),
+  (3, 'Pepa', 'Novák', 776776776, 'pepa@example.com', '8002021863', 2, 18000, 0, '784319', 3030, 'Husitská', 459, 'Pardubice', 53001, 'pepa', '$2y$10$gdKbI0xIjjixF0yuUrDLmuZH8SUa5V2bveIaivVqxJT3b73FQAu/q'),
   (4, 'Hana', 'Nováková', NULL, 'hana@example.com', '8551111558', 1, 18000, 0, '784319', 3030, 'Husitská', 459, 'Pardubice', 53001, 'hana', '$2y$10$OaNo1pXz4FaCAxSaPRtFguCXOlY8pFjXwl9BipFdn9gGnTXNhPzZS');
 
 -- --------------------------------------------------------
@@ -84,9 +57,10 @@ INSERT INTO `employees` (`employee_id`, `first_name`, `last_name`, `phone_number
 -- Struktura tabulky `ingredients`
 --
 
+DROP TABLE IF EXISTS `ingredients`;
 CREATE TABLE `ingredients` (
   `ingredience_id` int(11) NOT NULL,
-  `name` varchar(50) COLLATE utf8mb4_czech_ci NOT NULL,
+  `ingredience_name` varchar(50) COLLATE utf8mb4_czech_ci NOT NULL,
   `unit` varchar(5) COLLATE utf8mb4_czech_ci NOT NULL DEFAULT 'kg'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
 
@@ -94,7 +68,7 @@ CREATE TABLE `ingredients` (
 -- Vypisuji data pro tabulku `ingredients`
 --
 
-INSERT INTO `ingredients` (`ingredience_id`, `name`, `unit`) VALUES
+INSERT INTO `ingredients` (`ingredience_id`, `ingredience_name`, `unit`) VALUES
   (1, 'Maso', 'kg'),
   (2, 'Brambory', 'kg'),
   (3, 'Rýže', 'kg'),
@@ -109,6 +83,7 @@ INSERT INTO `ingredients` (`ingredience_id`, `name`, `unit`) VALUES
 -- Struktura tabulky `ingredients_in_items`
 --
 
+DROP TABLE IF EXISTS `ingredients_in_items`;
 CREATE TABLE `ingredients_in_items` (
   `ingredience_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
@@ -120,26 +95,26 @@ CREATE TABLE `ingredients_in_items` (
 --
 
 INSERT INTO `ingredients_in_items` (`ingredience_id`, `item_id`, `amount`) VALUES
+  (1, 18, '0.40'),
+  (1, 22, '0.50'),
+  (1, 29, '0.25'),
+  (2, 20, '0.30'),
+  (2, 23, '0.30'),
+  (2, 26, '0.30'),
+  (2, 27, '0.20'),
+  (3, 24, '0.30'),
   (4, 1, '0.30'),
   (4, 2, '0.30'),
   (4, 3, '0.30'),
   (4, 4, '0.30'),
   (4, 5, '0.30'),
   (4, 9, '0.20'),
-  (6, 9, '0.05'),
-  (1, 18, '0.40'),
+  (4, 30, '0.30'),
   (5, 18, '0.10'),
   (5, 19, '0.10'),
+  (6, 9, '0.05'),
   (6, 19, '0.25'),
   (7, 20, '1.00'),
-  (5, 20, '0.10'),
-  (1, 22, '0.50'),
-  (2, 23, '0.30'),
-  (3, 24, '0.30'),
-  (2, 26, '0.30'),
-  (2, 27, '0.20'),
-  (1, 29, '0.25'),
-  (4, 30, '0.30'),
   (7, 31, '1.50');
 
 -- --------------------------------------------------------
@@ -148,6 +123,7 @@ INSERT INTO `ingredients_in_items` (`ingredience_id`, `item_id`, `amount`) VALUE
 -- Struktura tabulky `items`
 --
 
+DROP TABLE IF EXISTS `items`;
 CREATE TABLE `items` (
   `item_id` int(11) NOT NULL,
   `item_name` varchar(60) COLLATE utf8mb4_czech_ci NOT NULL,
@@ -179,7 +155,7 @@ INSERT INTO `items` (`item_id`, `item_name`, `available`, `price`, `category_id`
   (16, 'Vodka', 1, '25.00', 3),
   (17, 'Rum', 1, '24.00', 3),
   (18, 'Řízek', 1, '99.00', 4),
-  (19, 'Palačinky', 1, '79.00', 4),
+  (19, 'Palačinky', 1, '66.00', 4),
   (20, 'Smažený sýr', 1, '75.00', 4),
   (21, 'Špagety', 1, '99.00', 4),
   (22, 'Kachna', 0, '99.00', 4),
@@ -200,6 +176,7 @@ INSERT INTO `items` (`item_id`, `item_name`, `available`, `price`, `category_id`
 -- Struktura tabulky `item_categories`
 --
 
+DROP TABLE IF EXISTS `item_categories`;
 CREATE TABLE `item_categories` (
   `category_id` int(11) NOT NULL,
   `category_name` varchar(50) COLLATE utf8mb4_czech_ci NOT NULL,
@@ -225,6 +202,7 @@ INSERT INTO `item_categories` (`category_id`, `category_name`, `menu_order`) VAL
 -- Struktura tabulky `ordered_items`
 --
 
+DROP TABLE IF EXISTS `ordered_items`;
 CREATE TABLE `ordered_items` (
   `order_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
@@ -256,6 +234,7 @@ INSERT INTO `ordered_items` (`order_id`, `item_id`, `amount`) VALUES
 -- Struktura tabulky `orders`
 --
 
+DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders` (
   `order_id` int(11) NOT NULL,
   `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -282,6 +261,7 @@ INSERT INTO `orders` (`order_id`, `date_created`, `paid`, `table_number`, `reser
 -- Struktura tabulky `positions`
 --
 
+DROP TABLE IF EXISTS `positions`;
 CREATE TABLE `positions` (
   `position_id` int(11) NOT NULL,
   `position_name` varchar(60) COLLATE utf8mb4_czech_ci NOT NULL
@@ -302,25 +282,38 @@ INSERT INTO `positions` (`position_id`, `position_name`) VALUES
 -- Struktura tabulky `reservations`
 --
 
+DROP TABLE IF EXISTS `reservations`;
 CREATE TABLE `reservations` (
   `reservation_id` int(11) NOT NULL,
   `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date_reserved` datetime NOT NULL,
-  `customer_id` int(11) NOT NULL,
-  `employee_id` int(11) NOT NULL
+  `employee_id` int(11) DEFAULT NULL,
+  `customer_name` varchar(50) COLLATE utf8mb4_czech_ci NOT NULL,
+  `customer_phone` int(11) DEFAULT NULL,
+  `customer_email` varchar(100) COLLATE utf8mb4_czech_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
 
 --
 -- Vypisuji data pro tabulku `reservations`
 --
 
-INSERT INTO `reservations` (`reservation_id`, `date_created`, `date_reserved`, `customer_id`, `employee_id`) VALUES
-  (1, '2017-01-01 14:00:00', '2017-06-01 15:00:00', 1, 1),
-  (2, '2017-03-02 14:00:00', '2017-06-01 14:00:00', 4, 1),
-  (3, '2017-03-02 14:02:00', '2017-06-01 14:00:00', 2, 1),
-  (4, '2017-10-19 20:15:16', '2017-06-02 12:00:00', 1, 1),
-  (5, '2017-10-19 20:15:17', '2017-06-03 10:00:00', 5, 1),
-  (6, '2017-10-19 20:15:17', '2017-06-03 11:00:00', 6, 1);
+INSERT INTO `reservations` (`reservation_id`, `date_created`, `date_reserved`, `employee_id`, `customer_name`, `customer_phone`, `customer_email`) VALUES
+  (1, '2017-01-01 14:00:00', '2017-06-01 15:00:00', 1, '', NULL, NULL),
+  (2, '2017-03-02 14:00:00', '2017-06-01 14:00:00', 1, '', NULL, NULL),
+  (3, '2017-03-02 14:02:00', '2017-06-01 14:00:00', 1, '', NULL, NULL),
+  (4, '2017-10-19 20:15:16', '2017-06-02 12:00:00', NULL, '', NULL, NULL),
+  (5, '2017-10-19 20:15:17', '2017-06-03 10:00:00', 1, '', NULL, NULL),
+  (6, '2017-10-19 20:15:17', '2017-06-03 11:00:00', 1, '', NULL, NULL),
+  (7, '2017-11-29 21:27:31', '2017-11-12 12:09:00', NULL, 'Tamka', 123456789, 'ee@aaa.voo'),
+  (8, '2017-11-29 21:29:49', '2017-11-12 12:09:00', NULL, 'Tamka', 123456789, 'ee@aaa.voo'),
+  (9, '2017-11-29 21:30:42', '2017-11-12 12:09:00', NULL, 'Tamka', 123456789, 'ee@aaa.voo'),
+  (10, '2017-11-29 21:32:45', '2017-11-12 12:09:00', NULL, 'Tamka', 123456789, 'ee@aaa.voo'),
+  (11, '2017-11-29 21:33:25', '2017-11-20 12:09:00', NULL, 'Tamka', 123456789, 'ee@aaa.voo'),
+  (12, '2017-11-29 21:40:29', '2017-11-30 12:09:00', NULL, 'Tamka', 123456789, 'ee@aaa.voo'),
+  (13, '2017-11-29 21:41:10', '2017-12-11 12:00:00', NULL, 'Tamka', 123456789, 'ee@aaa.voo'),
+  (14, '2017-11-29 21:41:44', '2017-12-11 12:00:00', NULL, 'Tamka', 123456789, 'ee@aaa.voo'),
+  (15, '2017-11-29 21:44:32', '2017-12-11 12:00:00', NULL, 'Tamka', 123456789, 'ee@aaa.voo'),
+  (16, '2017-11-29 21:44:38', '2017-12-11 12:00:00', NULL, 'Tamka', 123456789, 'ee@aaa.voo');
 
 -- --------------------------------------------------------
 
@@ -328,6 +321,7 @@ INSERT INTO `reservations` (`reservation_id`, `date_created`, `date_reserved`, `
 -- Struktura tabulky `reserved_rooms`
 --
 
+DROP TABLE IF EXISTS `reserved_rooms`;
 CREATE TABLE `reserved_rooms` (
   `room_id` int(11) NOT NULL,
   `reservation_id` int(11) NOT NULL,
@@ -343,11 +337,19 @@ INSERT INTO `reserved_rooms` (`room_id`, `reservation_id`, `seat_count`) VALUES
   (1, 2, 5),
   (1, 3, 1),
   (1, 4, 50),
-  (2, 4, 30),
-  (3, 4, 30),
-  (2, 5, 5),
   (1, 6, 30),
-  (2, 6, 20);
+  (2, 4, 30),
+  (2, 5, 5),
+  (2, 6, 20),
+  (2, 7, 7),
+  (2, 8, 7),
+  (2, 9, 7),
+  (2, 12, 7),
+  (3, 4, 30),
+  (3, 13, 7),
+  (3, 14, 7),
+  (3, 15, 7),
+  (3, 16, 7);
 
 -- --------------------------------------------------------
 
@@ -355,6 +357,7 @@ INSERT INTO `reserved_rooms` (`room_id`, `reservation_id`, `seat_count`) VALUES
 -- Struktura tabulky `rooms`
 --
 
+DROP TABLE IF EXISTS `rooms`;
 CREATE TABLE `rooms` (
   `room_id` int(11) NOT NULL,
   `capacity` smallint(6) NOT NULL,
@@ -377,12 +380,6 @@ INSERT INTO `rooms` (`room_id`, `capacity`, `description`, `tables_from`, `table
 --
 
 --
--- Klíče pro tabulku `customers`
---
-ALTER TABLE `customers`
-  ADD PRIMARY KEY (`customer_id`);
-
---
 -- Klíče pro tabulku `employees`
 --
 ALTER TABLE `employees`
@@ -402,6 +399,7 @@ ALTER TABLE `ingredients`
 -- Klíče pro tabulku `ingredients_in_items`
 --
 ALTER TABLE `ingredients_in_items`
+  ADD PRIMARY KEY (`ingredience_id`,`item_id`),
   ADD KEY `ingredience_id` (`ingredience_id`),
   ADD KEY `item_id` (`item_id`);
 
@@ -444,13 +442,13 @@ ALTER TABLE `positions`
 --
 ALTER TABLE `reservations`
   ADD PRIMARY KEY (`reservation_id`),
-  ADD KEY `customer_id` (`customer_id`),
   ADD KEY `employee_id` (`employee_id`);
 
 --
 -- Klíče pro tabulku `reserved_rooms`
 --
 ALTER TABLE `reserved_rooms`
+  ADD PRIMARY KEY (`room_id`,`reservation_id`),
   ADD KEY `reservation_id` (`reservation_id`),
   ADD KEY `room_id` (`room_id`);
 
@@ -465,11 +463,6 @@ ALTER TABLE `rooms`
 --
 
 --
--- AUTO_INCREMENT pro tabulku `customers`
---
-ALTER TABLE `customers`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
---
 -- AUTO_INCREMENT pro tabulku `employees`
 --
 ALTER TABLE `employees`
@@ -478,17 +471,17 @@ ALTER TABLE `employees`
 -- AUTO_INCREMENT pro tabulku `ingredients`
 --
 ALTER TABLE `ingredients`
-  MODIFY `ingredience_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `ingredience_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT pro tabulku `items`
 --
 ALTER TABLE `items`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 --
 -- AUTO_INCREMENT pro tabulku `item_categories`
 --
 ALTER TABLE `item_categories`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT pro tabulku `orders`
 --
@@ -503,7 +496,7 @@ ALTER TABLE `positions`
 -- AUTO_INCREMENT pro tabulku `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `reservation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `reservation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT pro tabulku `rooms`
 --
@@ -524,7 +517,7 @@ ALTER TABLE `employees`
 --
 ALTER TABLE `ingredients_in_items`
   ADD CONSTRAINT `ingredients_in_items_ibfk_1` FOREIGN KEY (`ingredience_id`) REFERENCES `ingredients` (`ingredience_id`),
-  ADD CONSTRAINT `ingredients_in_items_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`);
+  ADD CONSTRAINT `ingredients_in_items_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Omezení pro tabulku `items`
@@ -549,12 +542,11 @@ ALTER TABLE `orders`
 -- Omezení pro tabulku `reservations`
 --
 ALTER TABLE `reservations`
-  ADD CONSTRAINT `reservations_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`),
   ADD CONSTRAINT `reservations_ibfk_2` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`);
 
 --
 -- Omezení pro tabulku `reserved_rooms`
 --
 ALTER TABLE `reserved_rooms`
-  ADD CONSTRAINT `reserved_rooms_ibfk_1` FOREIGN KEY (`reservation_id`) REFERENCES `reservations` (`reservation_id`),
+  ADD CONSTRAINT `reserved_rooms_ibfk_1` FOREIGN KEY (`reservation_id`) REFERENCES `reservations` (`reservation_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `reserved_rooms_ibfk_2` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`room_id`);
