@@ -36,12 +36,12 @@ class ReservationPage extends Page {
             }
 
             if (!preg_match("/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/", $_POST['reservation_day'])) {
-                Utils::set_error_message("Nesprávny formát dátumu");
+                Utils::set_error_message("Nesprávny formát dátumu (YYYY-MM-DD)");
                 return true;
             }
 
             if (!preg_match("/^[0-9]{2}:[0-9]{2}$/", $_POST['reservation_time'])) {
-                Utils::set_error_message("Nesprávny formát času");
+                Utils::set_error_message("Nesprávny formát času (HH:MM)");
                 return true;
             }
 
