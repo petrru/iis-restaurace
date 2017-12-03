@@ -209,6 +209,18 @@ table.striped th {
 .employees_table tr > *:nth-child(6) {
   width: 18px;
 }
+.rooms_table {
+  width: 100%;
+}
+.rooms_table tr > *:nth-child(2) {
+  width: 100px;
+}
+.rooms_table tr > *:nth-child(3) {
+  width: 100px;
+}
+.rooms_table tr > *:nth-child(4) {
+  width: 36px;
+}
 .form_table {
   width: 100%;
 }
@@ -323,6 +335,9 @@ table.striped th {
 .modal .label {
   display: inline-block;
   width: 200px;
+}
+.small-input {
+  width: 30px;
 }
 .clear {
   clear: both;

@@ -10,9 +10,10 @@ class AdminMenu extends Menu
         if ($position == Utils::$PRIV_OWNER) {
             $this->items[] = ['manage/employees', 'Zaměstnanci'];
         }
-        if (in_array($position, [Utils::$PRIV_OWNER, Utils::$PRIV_BOSS])) {
+        if ($position >= Utils::$PRIV_BOSS) {
             $this->items[] = ['manage/menu', 'Menu'];
         }
+        $this->items[] = ['manage/other', 'Ostatní'];
         $this->items[] = ['logout', 'Odhlásit se'];
 
     }

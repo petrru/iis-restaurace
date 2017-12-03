@@ -10,6 +10,12 @@ class ItemPage extends FormPage
     protected $entity_name = 'jídlo';
     protected $entity_name_plural = 'menu';
 
+    public function init()
+    {
+        parent::init();
+        $this->form->print_form_element = false;
+    }
+
 
     public function get_data()
     {
@@ -45,16 +51,23 @@ class ItemPage extends FormPage
 
     public function print_content()
     {
+        $this->form->print_form_open_element();
         echo '<div class="container">';
         echo '<div class="column_80 left">';
         $this->print_form();
         echo '</div>';
         echo '<div class="column_20 left">';
         echo "<h4>Ingredience</h4>";
-        $this->print_ingredience();
+        if (!$this->is_new) {
+            $this->print_edit_ingredience();
+        }
+        else {
+            $this->print_add_ingredience();
+        }
         echo '</div>';
         echo '</div>';
         echo "<div class='clear'></div>";
+        echo '</form>';
         $body = "<form id='in-form'>"
               . "<span class='label'>Název ingredience:</span>"
               . "<select id='in-name'>";
@@ -69,11 +82,30 @@ class ItemPage extends FormPage
               .  "<span class='label'>Množství:</span>"
               .  "<input type='text' id='in-amount'> "
               .  "<span id='in-unit'></span><br>"
-              .  "<input type='submit' value='Uložit'></form>";
+              .  "<input type='submit' value='Uložit'> "
+              .  "<input type='button' id='in-delete' value='Odstranit"
+              .  " ingredienci'>"
+              .  "</form>"
+              .  "<div id='in-error'></div>";
         Utils::print_modal('edit-ingredient', 'Změna ingredience', $body);
     }
 
-    private function print_ingredience() {
+    private function print_add_ingredience() {
+        $in = new Ingredience();
+        $q = $in->select("SELECT * FROM ingredients
+                          ORDER BY ingredience_name");
+        $q->execute();
+        while ($q->fetch()) {
+            $key = 'ingredience_' . $in->ingredience_id;
+            echo "<div><input type='text' class='small-input' "
+                ."name='$key' "
+                ."value='" . ($_POST[$key] ?? '') . "'> "
+                ."{$in->unit} {$in->ingredience_name}"
+                ."</div>";
+        }
+    }
+
+    private function print_edit_ingredience() {
         $in = new IngredienceInItem();
         $q = $in->select("SELECT * FROM ingredients_in_items
                           NATURAL JOIN ingredients
@@ -85,12 +117,17 @@ class ItemPage extends FormPage
             $amount = str_replace('.', ',', $in->amount);
             $amount = preg_replace("/,?0+$/", "", $amount);
             echo "<div data-id='{$in->ingredience_id}'>"
-                ."<span class='amount'>$amount</span> {$in->unit} "
+                ."<span class='amount'>$amount</span> "
+                ."<span class='unit'>{$in->unit}</span> "
                 ."<span class='name'>{$in->ingredience_name}</span>"
                 ."<i class='material-icons edit' title='Editovat'>mode_edit</i>"
                 ."</div>";
         }
         echo "</div>";
+        echo "<br><a id='in-new' href='#'>"
+            ."<i class='material-icons'>add</i> "
+            ."Přidat ingredienci"
+            ."</a>";
     }
 
     protected function get_delete_url()
@@ -121,6 +158,18 @@ class ItemPage extends FormPage
             return true;
         }
         if ($this->is_new) {
+            foreach ($_POST as $k => $v) {
+                if (!preg_match("/^ingredience_([0-9]+)$/", $k, $match))
+                    continue;
+                if (!($v > 0))
+                    continue;
+                $iii = new IngredienceInItem();
+                $iii->begin_update();
+                $iii->ingredience_id = $match[1];
+                $iii->item_id = $this->item->item_id;
+                $iii->amount = str_replace(',', '.', $v);
+                $iii->save();
+            }
             Utils::set_success_message('Záznam byl úspěšně uložen.');
         }
         else {

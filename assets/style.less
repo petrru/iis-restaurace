@@ -237,6 +237,25 @@ table.striped {
   }
 }
 
+.rooms_table {
+  width: 100%;
+  tr > * {
+    // Jméno
+    &:nth-child(1) {
+
+    }
+    &:nth-child(2) {
+      width: 100px;
+    }
+    &:nth-child(3) {
+      width: 100px;
+    }
+    &:nth-child(4) {
+      width: 2*18px;
+    }
+  }
+}
+
 .form_table {
   width: 100%;
   th {
@@ -356,6 +375,10 @@ table.striped {
     display: inline-block;
     width: 200px;
   }
+}
+
+.small-input {
+  width: 30px;
 }
 
 .clear {

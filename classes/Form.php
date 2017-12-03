@@ -21,6 +21,8 @@ class Form
      * @var bool
      */
     private $save_successful = false;
+    public $print_form_element = true;
+
 
     public function __construct($model, $data, callable $validate_func)
     {
@@ -60,13 +62,18 @@ class Form
         }
     }
 
+    public function print_form_open_element() {
+        echo "<form action='" . htmlspecialchars($_SERVER['REQUEST_URI'])
+           . "' method='post'>";
+    }
+
     public function print_form() {
         if ($this->errors) {
             echo "Při ukládání formuláře došlo k následujícím chybám:<ul><li>"
                . implode('</li><li>', $this->errors), "</li></ul>";
         }
-        echo "<form action='" . htmlspecialchars($_SERVER['REQUEST_URI'])
-           . "' method='post'>";
+        if ($this->print_form_element)
+            $this->print_form_open_element();
         echo "<table class='form_table'>";
         foreach ($this->data as list($key, $label, $type, $other)) {
             if ($type == 'none')
@@ -133,7 +140,8 @@ class Form
         }
         echo "</table>";
         echo "<input type='submit' value='Uložit změny'>";
-        echo "</form>";
+        if ($this->print_form_element)
+            echo "</form>";
     }
 
     private function validate_form() {

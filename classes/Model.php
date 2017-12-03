@@ -7,38 +7,56 @@ class Model {
     protected $save_changes = false;
     protected $changed_fields = [];
     protected $is_new = true;
+    protected $before_change_id;
 
     public function select($sql) {
+        $this->is_new = false;
         $q = DB::prepare($sql);
         $q->setFetchMode(PDO::FETCH_INTO, $this);
         return $q;
     }
 
+    /**
+     * Najde záznam s příslušným ID
+     * @param $id int|array ID záznamu
+     * @return static
+     * @throws NoEntryException
+     */
     public static function get_by_id($id) {
         $out = new static();
         if ($id == 'new')
             return $out;
+        $arr = [];
+        $out->is_new = false;
         $sql = 'SELECT `' . implode('`, `', $out->columns) . '`';
-        $sql .= " FROM `{$out->table_name}` WHERE `{$out->primary_key}` = ?";
+        $sql .= " FROM `{$out->table_name}`";
+        $sql .= $out->where_clause($arr, $id);
         $q = $out->select($sql);
-        $q->bindValue(1, $id, PDO::PARAM_INT);
-        $q->execute();
+        $q->execute($arr);
         if (!$q->rowCount())
             throw new NoEntryException();
         $q->fetch();
         return $out;
     }
 
-    public function has_id($id) {
-        $sql = 'SELECT `' . $this->primary_key . '`';
-        $sql .= " FROM `{$this->table_name}` WHERE `{$this->primary_key}` = ?";
+    public function has_id($id=[]) {
+        $arr = [];
+        $pk_list = implode('` , `', $this->get_primary_key_arr());
+        $sql = "SELECT `$pk_list`";
+        $sql .= " FROM `{$this->table_name}`";
+        $sql .= $this->where_clause($arr, $id);
         $q = $this->select($sql);
-        $q->bindValue(1, $id, PDO::PARAM_INT);
-        $q->execute();
+        $q->execute($arr);
         return $q->rowCount();
     }
 
     public function get_primary_key() {
+        return $this->primary_key;
+    }
+
+    public function get_primary_key_arr() {
+        if (!is_array($this->primary_key))
+            return [$this->primary_key];
         return $this->primary_key;
     }
 
@@ -50,8 +68,14 @@ class Model {
     }
 
     public function begin_update() {
+        if ($this->get_id())
+            $this->is_new = false;
         $this->save_changes = true;
         $this->changed_fields = [];
+        $this->before_change_id = [];
+        foreach ($this->get_primary_key_arr() as $value) {
+            $this->before_change_id[$value] = $this->$value;
+        }
     }
 
     public function __set($name, $value) {
@@ -66,9 +90,27 @@ class Model {
     }
 
     public function is_new() {
-        if (!is_array($this->primary_key))
-            return !$this->get_id();
         return $this->is_new;
+    }
+
+    private function where_clause(&$arr, $input=[]) {
+        $first = true;
+        $out = ' WHERE ';
+        $pk = $this->get_primary_key_arr();
+        if (!is_array($input))
+            $input = [$input];
+        foreach ($pk as $i => $value) {
+            if ($first)
+                $first = false;
+            else
+                $out .= ' AND ';
+            $out .= "`$value` = :_old_$value";
+            if (count($input) > $i)
+                $arr['_old_' . $value] = $input[$i];
+            else
+                $arr['_old_' . $value] = $this->before_change_id[$value];
+        }
+        return $out;
     }
 
     public function save() {
@@ -85,8 +127,7 @@ class Model {
                 }
                 $sql .= "`$key` = :$key";
             }
-            $sql .= " WHERE `{$this->primary_key}` = :_pk";
-            $this->changed_fields['_pk'] = $this->get_id();
+            $sql .= $this->where_clause($this->changed_fields);
         }
         else {
             // Není ID --> INSERT INTO
@@ -104,18 +145,18 @@ class Model {
                 $values .= ":$key";
             }
             $sql .= $values . ")";
-            $this->is_new = false;
         }
         $q = DB::prepare($sql);
         $q->execute($this->changed_fields);
-        if (!$this->get_id() and !is_array($this->primary_key)) {
-            $pk = $this->primary_key;
-            $this->$pk = DB::lastInsertId();
-        }
         //var_dump($q->errorInfo());
         $this->changed_fields = [];
         $this->save_changes = false;
-        if ($q->errorInfo()[1] == 23000) {
+        if ($this->is_new() and !is_array($this->primary_key)) {
+            $pk = $this->primary_key;
+            $this->$pk = DB::lastInsertId();
+        }
+        $this->is_new = false;
+        if ($q->errorInfo()[1] == 1062) {
             preg_match("/^.+'(.*)'[^']+'(.+)'$/", $q->errorInfo()[2], $rep);
             return $rep;
         }
@@ -123,11 +164,21 @@ class Model {
     }
 
     public function delete() {
-        $sql = "DELETE FROM `{$this->table_name}`
-                WHERE `{$this->primary_key}` = ?";
+        if (!$this->save_changes)
+            $this->begin_update();
+        $arr = [];
+        $sql = "DELETE FROM `{$this->table_name}`";
+        $sql .= $this->where_clause($arr);
         $q = $this->select($sql);
-        $q->bindValue(1, $this->get_id(), PDO::PARAM_INT);
-        $q->execute();
+        $q->execute($arr);
         return $q->rowCount();
+    }
+
+    public function get_edit_url() {
+        return 'manage/' . $this->table_name .'/' . $this->get_id();
+    }
+
+    public function get_delete_url() {
+        return 'manage/' . $this->table_name . '/' . $this->get_id() . '/delete';
     }
 }

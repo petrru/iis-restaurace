@@ -18,7 +18,11 @@ class Mapper
         ["^manage/menu$", ItemsPage::class],
         ["^manage/menu/([0-9]+|new)$", ItemPage::class],
         ["^manage/menu/([0-9]+)/delete$", DeleteItemPage::class],
-        ["^manage/menu/([0-9]+)/save-ingredients", EditItemPage::class],
+        ["^manage/menu/([0-9]+)/save-ingredients", SaveItemPage::class],
+        ["^manage/other$", OtherPage::class],
+        ["^manage/rooms$", RoomsPage::class],
+        ["^manage/rooms/([0-9]+|new)$", RoomPage::class],
+        ["^manage/rooms/([0-9]+)/delete$", DeleteRoomPage::class],
         [".*", NotFoundPage::class]
     ];
 

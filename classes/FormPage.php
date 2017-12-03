@@ -19,7 +19,10 @@ abstract class FormPage extends Page
 
     protected abstract function get_links();
 
-    protected abstract function get_delete_url();
+    protected function get_delete_url()
+    {
+        return $this->item->get_delete_url();
+    }
 
     protected abstract function get_item($id);
 

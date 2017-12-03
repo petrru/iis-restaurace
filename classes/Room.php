@@ -12,7 +12,8 @@ class Room extends Model
 {
     protected $room_id, $capacity, $description, $tables_from, $tables_to;
 
-    protected $columns = ['room_id', 'capacity', 'description', 'tables_from', 'tables_to'];
+    protected $columns = ['room_id', 'capacity', 'description', 'tables_from',
+        'tables_to'];
     protected $primary_key = 'room_id';
     protected $table_name = 'rooms';
 }

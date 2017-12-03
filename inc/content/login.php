@@ -4,12 +4,6 @@
 </div>
 <?php unset($_SESSION['invalid_password']); endif; ?>
 
-<?php
-    echo "ahoj";
-    echo $_POST["password"] ?? "";
-
-?>
-
 <div class="login_form">
     <form action="login" method="post">
         <!-- <form action="/action_page.php"> -->

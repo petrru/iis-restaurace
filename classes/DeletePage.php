@@ -20,12 +20,18 @@ abstract class DeletePage extends Page
         return new PublicMenu('');
     }
 
+    /**
+     * @throws NoEntryException
+     */
     protected abstract function init_vars();
 
     protected function get_id() {
         return explode('/', $this->url)[2];
     }
 
+    /**
+     * @throws NoEntryException
+     */
     public function init() {
         $this->init_vars();
         if ($this->model->delete()) {
