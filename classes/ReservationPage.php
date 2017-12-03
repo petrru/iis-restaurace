@@ -31,7 +31,7 @@ class ReservationPage extends Page {
             if (empty($_POST['customer_name']) || empty($_POST['reservation_day']) || empty($_POST['reservation_time']) ||
                 empty($_POST['people_amount']) || empty($_POST['reservation_room']) || (empty($_POST['customer_phone']) &&
                     empty($_POST['customer_email']))) {
-                Utils::set_error_message("Vplňte prosím všetky údaje označené hviezdičkou");
+                Utils::set_error_message("Vyplňte prosím všetky údaje označené hviezdičkou");
                 return true;
             }
 
