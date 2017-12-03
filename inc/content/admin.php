@@ -7,7 +7,7 @@
           <p>Vitajte späť</p>
           <div class="location_image">
               <!--Source: https://pixabay.com/en/ -->
-              <img src="supervisor.jpg">
+              <img src="assets/supervisor.jpg">
           </div>
       </div>
     </div>
