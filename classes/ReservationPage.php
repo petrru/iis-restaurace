@@ -39,8 +39,8 @@ class ReservationPage extends Page {
                 return true;
             }
 
-            if (!preg_match("/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/", $_POST['reservation_day'])) {
-                Utils::set_error_message("Nesprávny formát dátumu (YYYY-MM-DD)");
+            if (!preg_match("/^([0-9]{1,2}\.){2}[0-9]{4}$/", $_POST['reservation_day'])) {
+                Utils::set_error_message("Nesprávny formát dátumu (DD.MM.YYYY)");
                 return true;
             }
 
@@ -69,10 +69,14 @@ class ReservationPage extends Page {
                 return true;
             }
 
+            $day = preg_replace("/^([0-9]+)\.([0-9]+)\.([0-9]+)$/",
+                                "$3-$2-$1",
+                                $_POST['reservation_day']);
+
             $new_reservation = new Reservation();
             $new_reservation->begin_update();
             $new_reservation->customer_name = $_POST['customer_name'];
-            $new_reservation->date_reserved = $_POST['reservation_day']." ".$_POST['reservation_time'];
+            $new_reservation->date_reserved = $day ." ".$_POST['reservation_time'];
             $new_reservation->customer_phone = $_POST['customer_phone'];
             $new_reservation->customer_email = $_POST['customer_email'];
             $new_reservation->customer_name = $_POST['customer_name'];
@@ -83,11 +87,14 @@ class ReservationPage extends Page {
             $new_reserved_room->room_id = $_POST['reservation_room'];
             $new_reserved_room->reservation_id = $new_reservation->reservation_id;
             $new_reserved_room->seat_count = $_POST['people_amount'];
-            $new_reserved_room->save();
-
-            Utils::set_success_message("Vašu rezerváciu sme prijali.");
-            Utils::redirect("reservation");
-            return false;
+            if ($new_reserved_room->save()) {
+                Utils::set_success_message("Vašu rezerváciu sme prijali.");
+                Utils::redirect("reservation");
+                return false;
+            }
+            else {
+                Utils::set_error_message("Chyba při ukládání rezervace.");
+            }
         }
         return true;
     }

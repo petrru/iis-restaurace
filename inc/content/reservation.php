@@ -11,10 +11,12 @@
         echo htmlentities($_POST['customer_name'] ?? ''); ?>"><br>
         Deň rezervácie:*<br>
         <input type="text" name="reservation_day" value="<?php
-        echo htmlentities($_POST['reservation_day'] ?? ''); ?>"><br>
+        echo htmlentities($_POST['reservation_day'] ?? date("d.m.Y")); ?>"
+               placeholder="DD.MM.YYYY"><br>
         Čas rezervácie:*<br>
         <input type="text" name="reservation_time" value="<?php
-        echo htmlentities($_POST['reservation_time'] ?? ''); ?>"><br>
+        echo htmlentities($_POST['reservation_time'] ?? ''); ?>"
+            placeholder="MM:SS"><br>
         Počet ľudí:*<br>
         <input type="text" name="people_amount" value="<?php
         echo htmlentities($_POST['people_amount'] ?? ''); ?>"><br>

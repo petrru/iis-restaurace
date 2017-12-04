@@ -24,6 +24,7 @@ abstract class FormPage extends Page
      * [3] .. Pole s volitelnými údaji:
      *        - 'other' => Vytisknout text za polem
      *        - 'required' => Povinná položka
+     *        - 'placeholder' => Šedivá výchozí hodnota
      *        - 'do-not-load' => Nenačte aktuální hodnotu z databáze
      *        - 'do-not-save' => Neuloží změněnou hodnotu do databáze
      *        - 'second-password' => Příznak pro kontrolní pole hesla

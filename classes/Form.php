@@ -43,6 +43,7 @@ class Form
      *                                        z databáze
      *                     - 'do-not-save' => Neuloží změněnou hodnotu
      *                                        do databáze
+     *                     - 'placeholder' => Šedivá výchozí hodnota
      *                     - 'second-password' => Příznak pro kontrolní pole
      *                                            hesla
      *                     - 'table' => Název tabulky (při typu fk = foreign
@@ -134,7 +135,10 @@ class Form
                     break;
                 case "text":
                 case "email":
-                    echo "<input type='$type' name='$key' value='$value'>";
+                    echo "<input type='$type' name='$key' value='$value'";
+                    if (isset($other['placeholder']))
+                        echo " placeholder='{$other['placeholder']}'";
+                    echo ">";
                     break;
                 case "number":
                     $value = str_replace('.', ',', $value);

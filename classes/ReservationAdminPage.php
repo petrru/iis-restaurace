@@ -31,6 +31,10 @@ class ReservationAdminPage extends FormPage
             $this->back_url .= "current";
         if (!$this->item->employee_id)
             $this->item->employee_id = Utils::get_logged_user()->employee_id;
+        $d = new DateTime($this->item->date_created);
+        $this->item->date_created = $d->format("d.m.Y H:i");
+        $d = new DateTime($this->item->date_reserved);
+        $this->item->date_reserved = $d->format("d.m.Y H:i");
     }
 
     /**
@@ -79,14 +83,14 @@ class ReservationAdminPage extends FormPage
     {
         $out = [];
         $out[] = ['date_reserved', 'Rezervované datum', 'text',
-                  ['required' => true]];
+                  ['required' => true, 'placeholder' => "DD.MM.YYYY HH:MM"]];
         if (!$this->is_new)
             $out[] = ['date_created', 'Datum vytvoření', 'readonly',
                       ['do-not-save' => true]];
         $out[] = ['customer_name', 'Jméno zákazníka', 'text',
                   ['required' => true]];
         $out[] = ['customer_phone', 'Telefon zákazníka', 'number', []];
-        $out[] = ['customer_email', 'E-mail zákazníka', 'text', []];
+        $out[] = ['customer_email', 'E-mail zákazníka', 'email', []];
         $out[] = ['employee_id', 'Vyřizuje', 'fk', ['table' => new Employee(),
             'sql' => 'SELECT employee_id, CONCAT(last_name, \' \', first_name)
                       AS first_name FROM employees
@@ -126,6 +130,14 @@ class ReservationAdminPage extends FormPage
             $out[] = 'Je nutné zadat alespoň telefon nebo e-mail zákazníka.';
         if ($r->customer_phone && strlen($r->customer_phone) != 9)
             $out[] = 'Zadané telefonní číslo není správné';
+
+        $ex = "/([0-9]{1,2})\.([0-9]{1,2})\.([0-9]{4})"
+            . " ([0-9]{1,2}:[0-9]{1,2})/";
+        if (!preg_match($ex, $r->date_reserved)) {
+            $out[] = 'Nesprávný formát zadaného datumu (vyžaduje se: DD.MM.YYYY'
+                   . ' HH:MM).';
+        }
+        $r->date_reserved = preg_replace($ex, "$3-$2-1 $4", $r->date_reserved);
 
         $r = new Room();
         $q = $r->select("SELECT room_id, capacity, description FROM rooms");
