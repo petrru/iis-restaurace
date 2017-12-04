@@ -10,7 +10,6 @@ class Mapper
         ["^login$", LoginPage::class],
         ["^logout$", LogoutPage::class],
         ["^reservation$", ReservationPage::class],
-        ["^new-account$", RegisterPage::class],
         ["^manage$", AdminHomePage::class],
         ["^manage/employees$", EmployeesPage::class],
         ["^manage/employees/([0-9]+|new)$", EmployeePage::class],
