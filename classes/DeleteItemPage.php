@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class DeleteItemPage
+ * Smaže položku (jídlo)
+ */
 class DeleteItemPage extends DeletePage {
     public function check_privileges($position_id)
     {

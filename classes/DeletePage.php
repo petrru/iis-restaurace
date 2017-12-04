@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class DeletePage
+ * Odstraní řádek z databáze
+ */
 abstract class DeletePage extends Page
 {
     /** @var Model */
@@ -21,15 +25,21 @@ abstract class DeletePage extends Page
     }
 
     /**
+     * Inicializuje obsah proměnné $model
      * @throws NoEntryException
      */
     protected abstract function init_vars();
 
+    /**
+     * Vrátí ID mazaného řádku
+     * @return int|array
+     */
     protected function get_id() {
         return explode('/', $this->url)[2];
     }
 
     /**
+     * Provede smazání
      * @throws NoEntryException
      */
     public function init() {

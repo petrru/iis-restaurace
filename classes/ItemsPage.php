@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class ItemsPage
+ * Seznam jídel
+ */
 class ItemsPage extends MenuPage
 {
     protected $only_available = false;
@@ -30,6 +34,11 @@ class ItemsPage extends MenuPage
         return $arr;
     }
 
+    /**
+     * Vrátí sloupce jednoho řádku menu
+     * @param Item $item
+     * @return array
+     */
     protected function get_row($item)
     {
         $arr = parent::get_row($item);

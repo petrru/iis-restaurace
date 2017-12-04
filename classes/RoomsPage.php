@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class RoomsPage
+ * Seznam místností
+ */
 class RoomsPage extends Page
 {
     public function get_title()

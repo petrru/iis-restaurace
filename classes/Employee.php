@@ -36,6 +36,10 @@ class Employee extends Model
     protected $primary_key = 'employee_id';
     protected $table_name = 'employees';
 
+    /**
+     * Vrátí celou adresu zaměstnance
+     * @return string
+     */
     public function get_full_address() {
         if ($this->street_name and $this->street_number and $this->city)
             return "{$this->street_name} {$this->street_number}, {$this->city}";
@@ -47,6 +51,10 @@ class Employee extends Model
             return "";
     }
 
+    /**
+     * Vrátí plat včetně Kč
+     * @return string
+     */
     public function get_salary() {
         if (!$this->salary)
             return '';

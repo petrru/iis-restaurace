@@ -1,7 +1,15 @@
 <?php
 
+/**
+ * Class AdminMenu
+ * Menu pro přihlášené uživatele
+ */
 class AdminMenu extends Menu
 {
+    /**
+     * Konstruktor Menu
+     * @param $active_item
+     */
     public function __construct($active_item)
     {
         parent::__construct($active_item);
@@ -20,6 +28,10 @@ class AdminMenu extends Menu
 
     }
 
+    /**
+     * URL, kam má vést hlavní odkaz "Dos compañeros"
+     * @return string
+     */
     public function get_homepage_url()
     {
         return './manage';

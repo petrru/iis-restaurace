@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class ReservationAdminPage
+ * Seznam rezervací
+ */
 class ReservationAdminPage extends FormPage
 {
     /** @var Reservation */
@@ -13,6 +17,7 @@ class ReservationAdminPage extends FormPage
     public $extra_script = 'reservation.js';
 
     /**
+     * Inicializuje formulář a uloží případné změny
      * @throws NoEntryException
      */
     public function init()
@@ -28,6 +33,9 @@ class ReservationAdminPage extends FormPage
             $this->item->employee_id = Utils::get_logged_user()->employee_id;
     }
 
+    /**
+     * Vypíše seznam dostupných místností
+     */
     private function print_seats() {
         $r = new Room();
         $sql = "SELECT rooms.room_id, capacity, description, seat_count
@@ -48,6 +56,9 @@ class ReservationAdminPage extends FormPage
         echo "<hr><b>Celkem: </b><span id='total-seats'></span> míst";
     }
 
+    /**
+     * Vypíše obsah stránky
+     */
     public function print_content()
     {
         $this->form->print_form_open_element();
@@ -90,6 +101,7 @@ class ReservationAdminPage extends FormPage
     }
 
     /**
+     * Najde položku podle ID
      * @param int $id
      * @return Reservation
      * @throws NoEntryException
@@ -142,9 +154,6 @@ class ReservationAdminPage extends FormPage
         return $out;
     }
 
-    /**
-     * @return Menu
-     */
     public function get_menu()
     {
         return new AdminMenu('manage/reservations/current');

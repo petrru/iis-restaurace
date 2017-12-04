@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class OtherPage
+ * Záložka "ostatní" v administraci
+ */
 class OtherPage extends Page
 {
 

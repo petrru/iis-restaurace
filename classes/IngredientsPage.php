@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class IngredientsPage
+ * Seznam ingrediencí
+ */
 class IngredientsPage extends Page
 {
     public function get_title()

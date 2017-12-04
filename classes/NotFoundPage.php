@@ -1,6 +1,9 @@
 <?php
 
-
+/**
+ * Class NotFoundPage
+ * Chyba 404
+ */
 class NotFoundPage extends Page
 {
     public function __construct()

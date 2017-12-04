@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class DeleteReservationPage
+ * Odstraní rezervaci
+ */
 class DeleteReservationPage extends DeletePage {
     /** @var Reservation */
     protected $model;

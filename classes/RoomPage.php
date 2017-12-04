@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Class RoomPage
+ * Editace / přidání místnosti
+ */
+
 class RoomPage extends FormPage
 {
     /** @var Room */
@@ -8,7 +13,27 @@ class RoomPage extends FormPage
     protected $entity_name = 'místnost';
     protected $entity_name_plural = 'místností';
 
-
+    /**
+     * Vrátí seznam prvků formuláře
+     * Jeden prvek se skládá z pole obsahujícího:
+     * [0] .. Název sloupce v databázi
+     * [1] .. Název pole pro uživatele
+     * [2] .. Typ pole (password, text, email, number, birth_number, bank, fk,
+     *                  readonly)
+     * [3] .. Pole s volitelnými údaji:
+     *        - 'other' => Vytisknout text za polem
+     *        - 'required' => Povinná položka
+     *        - 'do-not-load' => Nenačte aktuální hodnotu z databáze
+     *        - 'do-not-save' => Neuloží změněnou hodnotu do databáze
+     *        - 'second-password' => Příznak pro kontrolní pole hesla
+     *        - 'table' => Název tabulky (při typu fk = foreign key)
+     *        - 'sql' => SELECT dotaz na získání hodnot z cizí tabulky
+     *                   (při typu fk = foreign key)
+     *        - 'display' => Název sloupce z dotazu, který má být zobrazen
+     *                   (při typu fk = foreign key)
+     *        - 'code', 'prefix' => Vyplněné údaje při typu bank = číslo účtu
+     * @return array
+     */
     protected function get_data()
     {
         return [
@@ -18,16 +43,31 @@ class RoomPage extends FormPage
         ];
     }
 
+    /**
+     * Seznam odkazů na konci stránky
+     * @return array
+     */
     protected function get_links()
     {
         return ["<a href='manage/rooms'>Zpět na seznam místností</a>"];
     }
 
+    /**
+     * Najde záznam podle ID záznamu
+     *
+     * @throws NoEntryException
+     * @param $id int ID záznamu
+     * @return Room
+     */
     protected function get_item($id)
     {
         return Room::get_by_id($id);
     }
 
+    /**
+     * Vypíše tento záznam jako řetězec (používá se část titulku)
+     * @return string
+     */
     protected function to_string()
     {
         if ($this->is_new)
@@ -76,6 +116,7 @@ class RoomPage extends FormPage
     }
 
     /**
+     * Vrátí instanci třídy tvořící hlavní lištu
      * @return Menu
      */
     public function get_menu()

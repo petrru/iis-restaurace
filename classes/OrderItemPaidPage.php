@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class OrderItemPaidPage
+ * Označí objednávku jako (ne)zaplacenou
+ */
 class OrderItemPaidPage extends Page
 {
     public function should_print_html()

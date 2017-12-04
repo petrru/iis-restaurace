@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class IngredientPage
+ * Přidání / změna ingredience
+ */
 class IngredientPage extends FormPage
 {
     /** @var Ingredience */

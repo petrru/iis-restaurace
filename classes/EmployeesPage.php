@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class EmployeesPage
+ * Seznam zaměstnanců
+ */
 class EmployeesPage extends Page
 {
     public function get_title()

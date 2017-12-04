@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class AllOrdersPage
+ * Seznam všech objednávek
+ */
 class AllOrdersPage extends Page
 {
 

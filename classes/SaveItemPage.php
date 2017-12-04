@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class SaveItemPage
+ * Uloží změny ingrediencí v jídle (pomocí JSON)
+ */
 class SaveItemPage extends JsonPage
 {
     private $item_id;
@@ -9,6 +13,10 @@ class SaveItemPage extends JsonPage
         return $position_id >= Utils::$PRIV_BOSS;
     }
 
+    /**
+     * Změna ingredience
+     * @return array Seznam chyb
+     */
     private function do_modify() {
         $iii = new IngredienceInItem();
         $iii->ingredience_id = $_POST['old_id'];
@@ -26,6 +34,10 @@ class SaveItemPage extends JsonPage
         return ["e" => "ok"];
     }
 
+    /**
+     * Přidání ingredience
+     * @return array Seznam chyb
+     */
     private function do_add()
     {
         if (!preg_match("/^[0-9]+[.,]?[0-9]*$/", $_POST['amount']))
@@ -43,6 +55,10 @@ class SaveItemPage extends JsonPage
         return ["e" => "ok"];
     }
 
+    /**
+     * Smazání ingredience
+     * @return array Seznam chyb
+     */
     private function do_delete()
     {
         $id = [$_POST['id'], $this->item_id];
@@ -56,6 +72,10 @@ class SaveItemPage extends JsonPage
         return ["e" => "ok"];
     }
 
+    /**
+     * Zavolá jednu z výše vytvořených metod
+     * @return array Seznam chyb
+     */
     protected function get_output()
     {
         $this->item_id = explode("/", $this->url)[2];

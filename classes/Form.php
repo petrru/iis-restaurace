@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class Form
+ * Formulář
+ */
 class Form
 {
     /**
@@ -23,7 +27,33 @@ class Form
     private $save_successful = false;
     public $print_form_element = true;
 
-
+    /**
+     * Form constructor.
+     * @param $model Model Tabulka v databázi
+     * @param $data array Seznam prvků formuláře
+     *              Jeden prvek se skládá z pole obsahujícího:
+     *              [0] .. Název sloupce v databázi
+     *              [1] .. Název pole pro uživatele
+     *              [2] .. Typ pole (password, text, email, number,
+     *                               birth_number, bank, fk, readonly)
+     *              [3] .. Pole s volitelnými údaji:
+     *                     - 'other' => Vytisknout text za polem
+     *                     - 'required' => Povinná položka
+     *                     - 'do-not-load' => Nenačte aktuální hodnotu
+     *                                        z databáze
+     *                     - 'do-not-save' => Neuloží změněnou hodnotu
+     *                                        do databáze
+     *                     - 'second-password' => Příznak pro kontrolní pole
+     *                                            hesla
+     *                     - 'table' => Název tabulky (při typu fk = foreign
+     *                                  key)
+     *                     - 'sql' => SELECT dotaz na získání hodnot z cizí
+     *                                tabulky (při typu fk = foreign key)
+     *                     - 'display' => Název sloupce z dotazu, který má být
+     *                                    zobrazen (při typu fk = foreign key)
+     *                     - 'code', 'prefix' => Vyplněné údaje při typu bank
+     * @param callable $validate_func Fuknce ověřující správnost záznamů
+     */
     public function __construct($model, $data, callable $validate_func)
     {
         $this->model = $model;
@@ -62,11 +92,17 @@ class Form
         }
     }
 
+    /**
+     * Vytiskne otevírací značku <form>
+     */
     public function print_form_open_element() {
         echo "<form action='" . htmlspecialchars($_SERVER['REQUEST_URI'])
            . "' method='post'>";
     }
 
+    /**
+     * Vytiskne formulář
+     */
     public function print_form() {
         if ($this->errors) {
             echo "Při ukládání formuláře došlo k následujícím chybám:<ul><li>"
@@ -147,6 +183,9 @@ class Form
             echo "</form>";
     }
 
+    /**
+     * Ověří správnost zadaných dat
+     */
     private function validate_form() {
         foreach ($this->data as list($key, $label, $type, $other)) {
             if ($type == 'readonly') {
@@ -186,6 +225,10 @@ class Form
         }
     }
 
+    /**
+     * Zda došlo k úspěšnému uložení změn
+     * @return bool
+     */
     public function is_save_successful() {
         return $this->save_successful;
     }

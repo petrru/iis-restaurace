@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class DeleteIngredientPage
+ * Smaže ingredienci
+ */
 class DeleteIngredientPage extends DeletePage {
     public function check_privileges($position_id)
     {

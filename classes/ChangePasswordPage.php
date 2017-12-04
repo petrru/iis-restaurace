@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class ChangePasswordPage
+ * Změna vlastního hesla
+ */
 class ChangePasswordPage extends Page
 {
     /** @var Form */

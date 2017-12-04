@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class DeleteCategoryPage
+ * Smaže kategorii v menu
+ */
 class DeleteCategoryPage extends DeletePage {
     public function check_privileges($position_id)
     {

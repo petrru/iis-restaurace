@@ -1,4 +1,9 @@
 <?php
+
+/**
+ * Class LogoutPage
+ * Odhlásí uživatele
+ */
 class LogoutPage extends Page
 {
     public function get_title()

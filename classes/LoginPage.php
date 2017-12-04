@@ -1,4 +1,9 @@
 <?php
+
+/**
+ * Class LoginPage
+ * Přihlašovací stránka
+ */
 class LoginPage extends Page
 {
     public function get_title()

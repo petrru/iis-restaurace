@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class OrderPage
+ * Změna objednávky
+ */
 class OrderPage extends Page
 {
     /** @var Order */

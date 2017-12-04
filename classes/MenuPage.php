@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class MenuPage
+ * Menu
+ */
 class MenuPage extends Page
 {
     protected $only_available = true;
@@ -55,11 +59,16 @@ class MenuPage extends Page
         echo '</div>';
     }
 
+    /**
+     * Vrátí hlavičku tabulky
+     * @return array
+     */
     protected function get_header() {
         return ['Název', 'Cena'];
     }
 
     /**
+     * Vrátí řádek tabulky pro zadanou položku
      * @param $item Item
      * @return array
      */

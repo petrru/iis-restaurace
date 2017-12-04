@@ -1,7 +1,12 @@
 <?php
 
+/**
+ * Class Mapper
+ * Převádí URL na instanci třídy Page
+ */
 class Mapper
 {
+    /// Regulární výrazy
     private $map = [
         ["^$", StaticPage::class],
         ["^about$", StaticPage::class],
@@ -54,6 +59,11 @@ class Mapper
         self::$root_url = trim(file_get_contents("inc/root"));
     }
 
+    /**
+     * Vytvoří instanci třídy Page dle zadané URL adresy
+     * @param $url string URL stránky
+     * @return Page
+     */
     public function create_page($url) {
         $url = rtrim($url, '/');
         foreach ($this->map as $page_arr) {
@@ -68,10 +78,18 @@ class Mapper
         return new NotFoundPage();
     }
 
+    /**
+     * Vrátí absolutní URL adresu stránky
+     * @param $path string Lokální URL (vzhledem ke kořeni webu)
+     * @return string Absolutní URL
+     */
     public static function url($path) {
         return self::$root_url . $path;
     }
 
+    /**
+     * Vrátí absolutní URL adresu kořenu webu
+     */
     public static function get_root_url() {
         echo self::$root_url;
     }

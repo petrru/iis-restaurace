@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class ReservationPage
+ * Přidání zákaznické rezervace
+ */
 class ReservationPage extends Page {
 
 
@@ -40,7 +44,7 @@ class ReservationPage extends Page {
                 return true;
             }
 
-            if (!preg_match("/^[0-9]{2}:[0-9]{2}$/", $_POST['reservation_time'])) {
+            if (!preg_match("/^[0-9]{1,2}:[0-9]{1,2}$/", $_POST['reservation_time'])) {
                 Utils::set_error_message("Nesprávny formát času (HH:MM)");
                 return true;
             }

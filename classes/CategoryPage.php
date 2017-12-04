@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class CategoryPage
+ * Úprava kategorie
+ */
 class CategoryPage extends FormPage
 {
     /** @var ItemCategory */

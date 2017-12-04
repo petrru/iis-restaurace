@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class OrdersPage
+ * Výpis objednávek
+ */
 class OrdersPage extends Page
 {
     public $extra_script = 'orders.js';

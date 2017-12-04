@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class OrderAddItemPage
+ * Přidá položku k objednávce
+ */
 class OrderAddItemPage extends Page
 {
     public function should_print_html()

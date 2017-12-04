@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class ItemPage
+ * Editace / přidání jídla
+ */
 class ItemPage extends FormPage
 {
     protected $extra_script = 'item.js';
@@ -93,6 +97,9 @@ class ItemPage extends FormPage
         Utils::print_modal('edit-ingredient', 'Změna ingredience', $body);
     }
 
+    /**
+     * Pravý sloupec při zadání nového jídla
+     */
     private function print_add_ingredience() {
         $in = new Ingredience();
         $q = $in->select("SELECT * FROM ingredients
@@ -108,6 +115,9 @@ class ItemPage extends FormPage
         }
     }
 
+    /**
+     * Pravý sloupec při editaci jídla
+     */
     private function print_edit_ingredience() {
         $in = new IngredienceInItem();
         $q = $in->select("SELECT * FROM ingredients_in_items

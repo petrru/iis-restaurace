@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class NewOrderPage
+ * Nová objednávky
+ */
 class NewOrderPage extends Page
 {
     public function should_print_html()

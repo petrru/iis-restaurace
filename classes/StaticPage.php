@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class StaticPage
+ * Stránka obsahující jen statický text
+ */
 class StaticPage extends Page
 {
     private $titles = [

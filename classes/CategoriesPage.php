@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class CategoriesPage
+ * Seznam kategorií v menu
+ */
 class CategoriesPage extends Page
 {
     public function get_title()

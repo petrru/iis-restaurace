@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class DeleteRoomPage
+ * Odstraní místnost
+ */
 class DeleteRoomPage extends DeletePage {
     public function check_privileges($position_id)
     {

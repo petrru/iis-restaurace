@@ -1,15 +1,18 @@
 <?php
 
+/**
+ * Class ReservationsPage
+ * Seznam rezervací
+ */
 class ReservationsPage extends Page
 {
     private $month, $year;
     public $extra_script = "calendar.js";
 
-    public function get_title()
-    {
-        return 'Správa rezervací';
-    }
-
+    /**
+     * Inicializuje stránku. Může vyvolat NoEntryException, pokud se uživatel
+     * snaží načíst objekt, který neexistuje (bude vypsána chyba 404).
+     */
     public function init()
     {
         $url_part = explode("/", $this->url)[2];
@@ -22,7 +25,9 @@ class ReservationsPage extends Page
         }
     }
 
-
+    /**
+     * Vytiskne pole pro změnu měsíce
+     */
     private function print_change_month() {
         setlocale(LC_TIME, "czech");
         echo "<form id='change-month'>";
@@ -44,6 +49,9 @@ class ReservationsPage extends Page
         echo "</form>";
     }
 
+    /**
+     * Vypíše obsah stránky (v <body>...</body>, mezi úvodní lištou a patičkou)
+     */
     public function print_content()
     {
         echo '<div class="container">';
@@ -99,13 +107,31 @@ class ReservationsPage extends Page
         echo '</div>';
     }
 
+    /**
+     * Vrátí instanci třídy tvořící hlavní lištu
+     * @return Menu
+     */
     public function get_menu()
     {
         return new AdminMenu('manage/reservations/current');
     }
 
+    /**
+     * Zkontroluje, zda má uživatel právo přistupovat k této stránce
+     * @param $position_id int Pozice přihlášeného uživatele
+     * @return bool
+     */
     public function check_privileges($position_id)
     {
         return $position_id == Utils::$PRIV_OWNER;
+    }
+
+    /**
+     * Vrátí titulek stránky (přijde do <title>...</title>)
+     * @return string
+     */
+    public function get_title()
+    {
+        return 'Správa rezervací';
     }
 }

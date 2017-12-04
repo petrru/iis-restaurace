@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class JsonPage
+ * Stránka vracející JSON
+ */
 abstract class JsonPage extends Page
 {
     public function should_print_html()

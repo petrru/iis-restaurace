@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class EmployeePage
+ * Editace / přidání zaměstnance
+ */
 class EmployeePage extends FormPage
 {
     /** @var Employee */

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class DeleteEmployeePage
+ * Smaže zaměstnance
+ */
 class DeleteEmployeePage extends DeletePage {
     public function check_privileges($position_id) {
         return $position_id == Utils::$PRIV_OWNER;

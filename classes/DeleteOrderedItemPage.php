@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Class DeleteOrderedItemPage
+ * Odebere jídlo z objednávky
+ */
+
 class DeleteOrderedItemPage extends DeletePage {
     public function check_privileges($position_id) {
         return $position_id >= Utils::$PRIV_WAITER;
