@@ -1,5 +1,5 @@
 <div class="container">
     <h3>Stránka nenalezena</h3>
 
-    Sorry jako, tady nic není.
+    Je nám líto, ale tato stránka neexistuje.
 </div>

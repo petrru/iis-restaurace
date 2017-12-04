@@ -59,6 +59,7 @@ class Utils
             unset($_SESSION['last_active']);
             return;
         }
+        $_SESSION['last_active'] = time();
     }
 
     /**
