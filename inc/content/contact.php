@@ -8,7 +8,7 @@
                 <p>Dúhová ulica 15<br>612 00 Brno - Královo Pole<br>Česká Republika</p>
                 <div class="location_image">
                     <!--Source: https://pixabay.com/en/ -->
-                    <img src="location.jpg">
+                    <img src="assets/location.jpg">
                 </div>
             </div>
         </div>
@@ -21,7 +21,7 @@
                 </p>
                 <div class="location_image">
                     <!--Source: https://pixabay.com/en/ -->
-                    <img src="callus.jpg">
+                    <img src="assets/callus.jpg">
                 </div>
             </div>
         </div>
