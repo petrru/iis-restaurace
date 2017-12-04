@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Počítač: localhost
--- Vytvořeno: Pon 04. pro 2017, 01:07
+-- Vytvořeno: Pon 04. pro 2017, 12:02
 -- Verze serveru: 5.7.20-0ubuntu0.16.04.1
 -- Verze PHP: 7.0.22-0ubuntu0.16.04.1
 
@@ -50,7 +50,9 @@ INSERT INTO `employees` (`employee_id`, `first_name`, `last_name`, `phone_number
   (2, 'Petr', 'Rusiňák', NULL, 'petr@example.com', '9502090070', 3, 40000, 9769, '1000000005', 2700, 'Nová', 13, 'Brno', 60001, 'peta', '$2y$10$2kv7hhxF1L70S4KyHujgEucqUvSJ5Vzqs6tLCjyWHcjVkv4.tMsyq'),
   (3, 'Pepa', 'Novák', 776776776, 'pepa@example.com', '8002021863', 2, 18000, 0, '784319', 3030, 'Husitská', 459, 'Pardubice', 53001, 'pepa', '$2y$10$gdKbI0xIjjixF0yuUrDLmuZH8SUa5V2bveIaivVqxJT3b73FQAu/q'),
   (4, 'Hana', 'Nováková', NULL, 'hana@example.com', '8551111558', 1, 18000, 0, '784319', 3030, 'Husitská', 459, 'Pardubice', 53001, 'hana', '$2y$10$OaNo1pXz4FaCAxSaPRtFguCXOlY8pFjXwl9BipFdn9gGnTXNhPzZS'),
-  (5, 'Majitel', 'Malý', NULL, NULL, NULL, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '$2y$10$DIi3Fiio0NALo2c4Pxc5W.ba4hVwXNbPkvS47iDwB9WgEjYhYmWOS');
+  (5, 'Majitel', 'Malý', NULL, NULL, NULL, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '$2y$10$DIi3Fiio0NALo2c4Pxc5W.ba4hVwXNbPkvS47iDwB9WgEjYhYmWOS'),
+  (6, 'Vedoucí', 'Rychlý', NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'vedouci', '$2y$10$1xhDCKJyzdaFbpuY0SZfHekC2gUPRjINk70dYX1c.x8b2PypAjvOq'),
+  (7, 'Číšník', 'Test', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'cisnik', '$2y$10$KIxelSZdYrQueBmQ/BZM7Ozhw2cYGqWMTWunuvJugoztEGESl5qiO');
 
 -- --------------------------------------------------------
 
@@ -290,7 +292,8 @@ CREATE TABLE `positions` (
 INSERT INTO `positions` (`position_id`, `position_name`) VALUES
   (1, 'Číšník'),
   (2, 'Vedoucí'),
-  (3, 'Majitel');
+  (3, 'Majitel'),
+  (4, 'Neaktivní');
 
 -- --------------------------------------------------------
 
@@ -488,22 +491,22 @@ ALTER TABLE `rooms`
 -- AUTO_INCREMENT pro tabulku `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT pro tabulku `ingredients`
 --
 ALTER TABLE `ingredients`
-  MODIFY `ingredience_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `ingredience_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT pro tabulku `items`
 --
 ALTER TABLE `items`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 --
 -- AUTO_INCREMENT pro tabulku `item_categories`
 --
 ALTER TABLE `item_categories`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT pro tabulku `orders`
 --
@@ -513,7 +516,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT pro tabulku `positions`
 --
 ALTER TABLE `positions`
-  MODIFY `position_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `position_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT pro tabulku `reservations`
 --
