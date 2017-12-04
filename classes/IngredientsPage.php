@@ -44,7 +44,7 @@ class IngredientsPage extends Page
                 "<a href='{$i->get_edit_url()}'><i class='material-icons'>"
                 ."mode_edit</i></a>"
                 . "<a href='{$i->get_delete_url()}' class='confirm'"
-                . " data-confirm-msg='odstranit místnost"
+                . " data-confirm-msg='odstranit ingredienci"
                 . " {$i->ingredience_name}'>"
                 . "<i class='material-icons'>delete</i></a>"
             ]);

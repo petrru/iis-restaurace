@@ -35,6 +35,6 @@ class AdminHomePage extends Page
      */
     public function check_privileges($position_id)
     {
-        return $position_id >= 1;
+        return $position_id >= Utils::$PRIV_WAITER;
     }
 }

@@ -137,8 +137,7 @@ class ReservationAdminPage extends FormPage
             $out[] = 'Nesprávný formát zadaného datumu (vyžaduje se: DD.MM.YYYY'
                    . ' HH:MM).';
         }
-        $r->date_reserved = preg_replace($ex, "$3-$2-1 $4", $r->date_reserved);
-
+        $r->date_reserved = preg_replace($ex, "$3-$2-$1 $4", $r->date_reserved);
         $r = new Room();
         $q = $r->select("SELECT room_id, capacity, description FROM rooms");
         $q->execute();

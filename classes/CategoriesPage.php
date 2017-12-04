@@ -43,7 +43,7 @@ class CategoriesPage extends Page
                 "<a href='{$c->get_edit_url()}'><i class='material-icons'>"
                     ."mode_edit</i></a>"
                 . "<a href='{$c->get_delete_url()}' class='confirm'"
-                . " data-confirm-msg='odstranit místnost {$c->category_name}'>"
+                . " data-confirm-msg='odstranit kategorii {$c->category_name}'>"
                 . "<i class='material-icons'>delete</i></a>"
             ]);
             echo "</td></tr>";
@@ -61,6 +61,6 @@ class CategoriesPage extends Page
 
     public function check_privileges($position_id)
     {
-        return $position_id == Utils::$PRIV_OWNER;
+        return $position_id >= Utils::$PRIV_BOSS;
     }
 }

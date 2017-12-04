@@ -123,7 +123,7 @@ class ReservationsPage extends Page
      */
     public function check_privileges($position_id)
     {
-        return $position_id == Utils::$PRIV_OWNER;
+        return $position_id >= Utils::$PRIV_WAITER;
     }
 
     /**
