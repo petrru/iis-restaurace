@@ -9,20 +9,29 @@ class MenuPage extends Page
         return 'Menu';
     }
 
-    public function print_content()
-    {
-        echo '<div class="container row">';
-        $only_available = $this->only_available ? 'WHERE available = 1' : '';
+    /**
+     * @param $item Item
+     * @param bool $only_available
+     * @return PDOStatement
+     */
+    public static function get_query($item, $only_available=true) {
+        $only_available__sql = $only_available ? 'WHERE available = 1' : '';
         $sql = "SELECT item_id, item_name, category_name, price, category_id,
                 available
                 FROM items
-                NATURAL JOIN item_categories $only_available
+                NATURAL JOIN item_categories $only_available__sql
                 ORDER BY menu_order, item_name";
-
-        $item = new Item;
         $q = $item->select($sql);
         $q->execute();
+        return $q;
+    }
 
+    public function print_content()
+    {
+        echo '<div class="container row">';
+
+        $item = new Item;
+        $q = self::get_query($item, $this->only_available);
         $last_category = null;
 
         while ($q->fetch()) {

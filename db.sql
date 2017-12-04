@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Počítač: localhost
--- Vytvořeno: Ned 03. pro 2017, 14:00
+-- Vytvořeno: Pon 04. pro 2017, 01:07
 -- Verze serveru: 5.7.20-0ubuntu0.16.04.1
 -- Verze PHP: 7.0.22-0ubuntu0.16.04.1
 
@@ -49,7 +49,8 @@ INSERT INTO `employees` (`employee_id`, `first_name`, `last_name`, `phone_number
   (1, 'Tamara', 'Krestianková', 777888999, 'tamara@example.com', '9551010007', 3, 40000, 668, '123456796', 100, 'Falešná', 1, 'Brno', 60001, 'tami', '$2y$10$YC8ARlSUvVp0rZd7xlYm9uqVqlJbxbwuhCyjhJx5tAHykcC4Mg/Wq'),
   (2, 'Petr', 'Rusiňák', NULL, 'petr@example.com', '9502090070', 3, 40000, 9769, '1000000005', 2700, 'Nová', 13, 'Brno', 60001, 'peta', '$2y$10$2kv7hhxF1L70S4KyHujgEucqUvSJ5Vzqs6tLCjyWHcjVkv4.tMsyq'),
   (3, 'Pepa', 'Novák', 776776776, 'pepa@example.com', '8002021863', 2, 18000, 0, '784319', 3030, 'Husitská', 459, 'Pardubice', 53001, 'pepa', '$2y$10$gdKbI0xIjjixF0yuUrDLmuZH8SUa5V2bveIaivVqxJT3b73FQAu/q'),
-  (4, 'Hana', 'Nováková', NULL, 'hana@example.com', '8551111558', 1, 18000, 0, '784319', 3030, 'Husitská', 459, 'Pardubice', 53001, 'hana', '$2y$10$OaNo1pXz4FaCAxSaPRtFguCXOlY8pFjXwl9BipFdn9gGnTXNhPzZS');
+  (4, 'Hana', 'Nováková', NULL, 'hana@example.com', '8551111558', 1, 18000, 0, '784319', 3030, 'Husitská', 459, 'Pardubice', 53001, 'hana', '$2y$10$OaNo1pXz4FaCAxSaPRtFguCXOlY8pFjXwl9BipFdn9gGnTXNhPzZS'),
+  (5, 'Majitel', 'Malý', NULL, NULL, NULL, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '$2y$10$DIi3Fiio0NALo2c4Pxc5W.ba4hVwXNbPkvS47iDwB9WgEjYhYmWOS');
 
 -- --------------------------------------------------------
 
@@ -226,7 +227,18 @@ INSERT INTO `ordered_items` (`order_id`, `item_id`, `amount`) VALUES
   (4, 20, 1),
   (4, 26, 1),
   (5, 30, 1),
-  (6, 19, 3);
+  (6, 19, 3),
+  (6, 23, 1),
+  (6, 25, 1),
+  (6, 27, 1),
+  (6, 30, 15),
+  (6, 31, 1),
+  (7, 7, 2),
+  (7, 8, 2),
+  (8, 19, 1),
+  (8, 20, 1),
+  (8, 25, 1),
+  (10, 30, 1);
 
 -- --------------------------------------------------------
 
@@ -253,7 +265,11 @@ INSERT INTO `orders` (`order_id`, `date_created`, `paid`, `table_number`, `reser
   (3, '2017-10-19 20:15:17', 1, 18, NULL),
   (4, '2017-06-01 14:13:00', 1, 22, 1),
   (5, '2017-10-19 20:15:17', 0, 25, NULL),
-  (6, '2017-10-19 20:15:17', 0, 27, NULL);
+  (6, '2017-10-19 20:15:17', 0, 27, NULL),
+  (7, '2017-12-03 21:59:35', 0, 30, NULL),
+  (8, '2017-12-03 22:00:52', 1, 13, NULL),
+  (9, '2017-12-03 22:30:10', 1, 28, NULL),
+  (10, '2017-12-04 00:02:29', 1, 14, NULL);
 
 -- --------------------------------------------------------
 
@@ -304,16 +320,17 @@ INSERT INTO `reservations` (`reservation_id`, `date_created`, `date_reserved`, `
   (4, '2017-10-19 20:15:16', '2017-06-02 12:00:00', NULL, '', NULL, NULL),
   (5, '2017-10-19 20:15:17', '2017-06-03 10:00:00', 1, '', NULL, NULL),
   (6, '2017-10-19 20:15:17', '2017-06-03 11:00:00', 1, '', NULL, NULL),
-  (7, '2017-11-29 21:27:31', '2017-11-12 12:09:00', NULL, 'Tamka', 123456789, 'ee@aaa.voo'),
+  (7, '2017-11-29 21:27:31', '2017-11-12 12:09:00', 2, 'Tamkaaaa', 123456789, 'ee@aaa.voo'),
   (8, '2017-11-29 21:29:49', '2017-11-12 12:09:00', NULL, 'Tamka', 123456789, 'ee@aaa.voo'),
   (9, '2017-11-29 21:30:42', '2017-11-12 12:09:00', NULL, 'Tamka', 123456789, 'ee@aaa.voo'),
-  (10, '2017-11-29 21:32:45', '2017-11-12 12:09:00', NULL, 'Tamka', 123456789, 'ee@aaa.voo'),
   (11, '2017-11-29 21:33:25', '2017-11-20 12:09:00', NULL, 'Tamka', 123456789, 'ee@aaa.voo'),
   (12, '2017-11-29 21:40:29', '2017-11-30 12:09:00', NULL, 'Tamka', 123456789, 'ee@aaa.voo'),
-  (13, '2017-11-29 21:41:10', '2017-12-11 12:00:00', NULL, 'Tamka', 123456789, 'ee@aaa.voo'),
-  (14, '2017-11-29 21:41:44', '2017-12-11 12:00:00', NULL, 'Tamka', 123456789, 'ee@aaa.voo'),
-  (15, '2017-11-29 21:44:32', '2017-12-11 12:00:00', NULL, 'Tamka', 123456789, 'ee@aaa.voo'),
-  (16, '2017-11-29 21:44:38', '2017-12-11 12:00:00', NULL, 'Tamka', 123456789, 'ee@aaa.voo');
+  (14, '2017-11-29 21:41:44', '2017-12-11 12:00:00', 4, 'Tamka', 123456789, 'ee@aaa.voo'),
+  (15, '2017-11-29 21:44:32', '2017-12-11 12:00:00', 2, 'Tamka', 123456789, 'ee@aaa.voo'),
+  (16, '2017-11-29 21:44:38', '2017-12-11 12:00:00', NULL, 'Tamka', 123456789, 'ee@aaa.voo'),
+  (17, '2017-12-03 18:38:04', '2017-11-11 15:00:00', 2, 'Péťa', 123456789, NULL),
+  (18, '2017-12-03 20:07:18', '2017-11-11 15:00:00', 3, 'Frajer', 123456789, NULL),
+  (19, '2017-12-03 21:26:26', '2017-12-03 22:30:00', 2, 'Fantomas', NULL, 'fantomas@example.com');
 
 -- --------------------------------------------------------
 
@@ -338,6 +355,9 @@ INSERT INTO `reserved_rooms` (`room_id`, `reservation_id`, `seat_count`) VALUES
   (1, 3, 1),
   (1, 4, 50),
   (1, 6, 30),
+  (1, 14, 5),
+  (1, 18, 10),
+  (1, 19, 10),
   (2, 4, 30),
   (2, 5, 5),
   (2, 6, 20),
@@ -345,8 +365,10 @@ INSERT INTO `reserved_rooms` (`room_id`, `reservation_id`, `seat_count`) VALUES
   (2, 8, 7),
   (2, 9, 7),
   (2, 12, 7),
+  (2, 17, 10),
+  (2, 18, 15),
+  (2, 19, 10),
   (3, 4, 30),
-  (3, 13, 7),
   (3, 14, 7),
   (3, 15, 7),
   (3, 16, 7);
@@ -466,7 +488,7 @@ ALTER TABLE `rooms`
 -- AUTO_INCREMENT pro tabulku `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT pro tabulku `ingredients`
 --
@@ -486,7 +508,7 @@ ALTER TABLE `item_categories`
 -- AUTO_INCREMENT pro tabulku `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT pro tabulku `positions`
 --
@@ -496,7 +518,7 @@ ALTER TABLE `positions`
 -- AUTO_INCREMENT pro tabulku `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `reservation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `reservation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT pro tabulku `rooms`
 --

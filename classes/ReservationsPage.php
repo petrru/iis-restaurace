@@ -79,7 +79,7 @@ class ReservationsPage extends Page
             $date = new DateTime($r->date_reserved);
             echo "<tr><td>";
             echo implode("</td><td>", [
-                Utils::convert_weekday($date->format("%w% d.m.Y h:i")),
+                Utils::convert_weekday($date->format("%w% d.m.Y H:i")),
                 $r->customer_name,
                 $r->customer_phone ?? $r->customer_email,
                 $r->seats ?? 0,

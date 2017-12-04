@@ -307,7 +307,7 @@ table.striped {
     &:nth-child(2) {
     }
     &:nth-child(3) {
-      width: 100px;
+      width: 150px;
     }
     &:nth-child(4) {
       width: 50px;
@@ -319,6 +319,64 @@ table.striped {
     &:nth-child(6) {
       width: 2*18px;
     }
+  }
+}
+
+.ordered_items_table {
+  width: 100%;
+  tr > * {
+    // Jméno
+    &:nth-child(1) {
+
+    }
+    &:nth-child(2) {
+      width: 120px;
+      text-align: right;
+    }
+    &:nth-child(3) {
+      width: 90px;
+      text-align: right;
+    }
+    &:nth-child(4) {
+      width: 120px;
+      text-align: right;
+    }
+    &:nth-child(5) {
+      width: 18px;
+    }
+  }
+  [colspan] {
+    text-align: center;
+    background: #ccc;
+  }
+}
+
+.orders_table {
+  width: 100%;
+  tr > * {
+    // Jméno
+    &:nth-child(1) {
+
+    }
+    &:nth-child(2) {
+      width: 160px;
+      text-align: center;
+    }
+    &:nth-child(3) {
+      width: 180px;
+      text-align: right;
+    }
+    &:nth-child(4) {
+      width: 130px;
+      text-align: center;
+    }
+    &:nth-child(5) {
+      width: 18px;
+    }
+  }
+  [colspan] {
+    text-align: center;
+    background: #ccc;
   }
 }
 
@@ -450,6 +508,10 @@ table.striped {
   width: 30px;
 }
 
+.smaller-input {
+  width: 75px !important;
+}
+
 .clear {
   clear: both;
 }
@@ -461,3 +523,27 @@ table.striped {
 #year {
   width: 45px;
 }
+
+@small_box_size: 15px;
+@box_size: 38px;
+.room-box {
+  display: inline-block;
+  width: @box_size;
+  height: @box_size;
+  line-height: @box_size;
+  margin: 5px;
+  text-align: center;
+  border: 1px solid @red;
+  vertical-align: middle;
+  cursor: pointer;
+  &[data-order] {
+    background: @lightRed;
+  }
+  &.small {
+    width: @small_box_size;
+    height: @small_box_size;
+    line-height: @small_box_size;
+    cursor: auto;
+  }
+}
+

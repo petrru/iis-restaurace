@@ -33,6 +33,14 @@ class Mapper
             ReservationsPage::class],
         ["^manage/reservations/([0-9]+|new)$", ReservationAdminPage::class],
         ["^manage/reservations/([0-9]+)/delete$", DeleteReservationPage::class],
+        ["^manage/orders$", OrdersPage::class],
+        ["^manage/orders/all$", AllOrdersPage::class],
+        ["^manage/orders/new/([0-9]+)/?([0-9]*)$", NewOrderPage::class],
+        ["^manage/orders/([0-9]+)$", OrderPage::class],
+        ["^manage/orders/([0-9]+)/item$", OrderAddItemPage::class],
+        ["^manage/orders/([0-9]+)/del-item/([0-9]+)$",
+            DeleteOrderedItemPage::class],
+        ["^manage/orders/([0-9]+)/paid/[01]$", OrderItemPaidPage::class],
         ["^manage/change-password$", ChangePasswordPage::class],
         [".*", NotFoundPage::class]
     ];
