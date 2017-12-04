@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Projekt IIS</title>
+    <style type="text/css">
+    	table { border-collapse: collapse; }
+    	td, th { border: 1px solid black; padding: 0.3em 0.5em; text-align: left; }
+    	dt { font-weight: bold; margin-top: 0.5em; }
+    </style>
+</head>
+<body>
+
+<!-- Zkontrolujte prosím nastavení kódování v hlavičce dokumentu 
+     podle použitého editoru -->
+
+<h1>Restaurace</h1> <!-- Nahradte názvem svého zadání -->
+
+<dl>
+	<dt>Autoři</dt>
+	<dd>Petr Rusiňák <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+	    <a href="mailto:xrusin03@stud.fit.vutbr.cz">xrusin03@stud.fit.vutbr.cz</a> -
+		backend
+	</dd>
+	<dd>Tamara Krestianková <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+	    <a href="mailto:xkrest07@stud.fit.vutbr.cz">xkrest07@stud.fit.vutbr.cz</a> -
+		návrh databáze a frontend
+	</dd>
+	<dt>URL aplikace</dt>
+	<dd><a href="http://www.stud.fit.vutbr.cz/~xrusin03/iis/">http://www.stud.fit.vutbr.cz/~xrusin03/iis/</a></dd>
+</dl>
+
+<h2>Uživatelé systému pro testování</h2>
+<p>Uveďte prosím existující zástupce <strong>všech rolí uživatelů</strong>.</p>
+<table>
+<tbody><tr><th>Login</th><th>Heslo</th><th>Role</th></tr>
+<tr><td>admin</td><td>admin</td><td>Majitel restaurace</td></tr>
+<tr><td>vedouci</td><td>vedouci</td><td>Zodpovědný vedoucí</td></tr>
+<tr><td>cisnik</td><td>cisnik</td><td>Číšník</td></tr>
+</tbody></table>
+
+<h2>Implementace</h2>
+<p>
+	K vývoji bylo použito PHP bez frameworků s využitím mechanismu tříd,
+	LESS / CSS a jQuery.
+	Všechny příchozí požadavky (kromě přístupu ke statickým objektům,
+	např. obrázkům) jsou s použitím mod_rewrite směrovány na skript
+	page.php, kde dojde k inicializaci sezení, navázání spojení s databází
+	(třída DB), dekódování URL adresy (pomocí třídy Mapper)
+	a zobrazení stránky (pomocí potomka třídy Page). Všechny třídy jsou uloženy
+	ve složce classes/.
+</p>
+<p>
+	Třída Model a její potomci slouží k zjednodušení přístupu k databázi.
+	Potomci této třídy se jmenují totožně, jako tabulky v databázi (až na
+	jednotné číslo).
+</p>
+<p>
+    Potomci třídy Page slouží k vypsání aktuálně zobrazené
+	stránky a realizují jednotlivé případy užití systému. Konkrétně jsou
+	jednotlivé případy užití realizovány těmito třídami:
+</p>
+
+<ul>
+	<li>Zákazník: vytvoření rezervace - ReservationPage</li>
+	<li>Zákazník: zobrazit menu - MenuPage</li>
+	<li>Zaměstnanec: přihlášení / odhlášení - LoginPage, LogoutPage</li>
+	<li>Zaměstnanec: přidat objednávku - OrdersPage, NewOrderPage</li>
+	<li>Zaměstnanec: vypsat objednávky - OrdersPage, AllOrdersPage,
+        OrderPage</li>
+	<li>Zaměstnanec: upravit objednávku - OrderPage, OrderItemPaidPage,
+        OrderAddItemPage, DeleteOrderedItemPage</li>
+	<li>Zaměstnanec: správa rezervací - DeleteReservationPage,
+		ReservationAdminPage, ReservationsPage</li>
+	<li>Zaměstnanec: vystavit účet - OrderPage, OrderItemPaidPage</li>
+	<li>Odpovědný vedoucí: správa místností - DeleteRoomPage, RoomPage,
+        RoomsPage</li>
+	<li>Odpovědný vedoucí: správa menu - CategoriesPage, CategoryPage,
+        DeleteCategoryPage</li>
+	<li>Odpovědný vedoucí: správa položek v menu - DeleteItemPage
+        DeleteOrderedItemPage, ItemPage, ItemsPage, OrderAddItemPage,
+        OrderItemPaidPage, SaveItemPage</li>
+	<li>Majitel restaurace: Správa zaměstnanců - DeleteEmployeePage,
+        EmployeePage, EmployeesPage</li>
+	<li>Majitel restaurace: Správa místností - DeleteRoomPage, RoomPage,
+        RoomsPage</li>
+</ul>
+
+<p>
+    Složka assets/ obsahuje statické soubory, jako jsou CSS styly, soubory
+    JavaScriptu a obrázky.
+    Ve složce inc/ se nacházejí soubory, které jsou používány (např. pomocí
+    include) serverovou částí systému. Do složky inc/ není klientovi povolen
+    přímý přístup pomocí HTTP.
+</p>
+
+<h2>Instalace</h2>
+<ul>
+    <li>Požadavky: PHP verze 7.0 nebo vyšší, Apache s podporou .htaccess
+        a mod_rewrite, MySQL</li>
+    <li>Rozbalte archiv se zdrojovým kódem do libovolné složky
+        webového serveru</li>
+    <li>Na databázovém serveru spusťte skript db.sql.</li>
+    <li>V souboru inc/db.php zadejte přístupové údaje k databázi.</li>
+    <li>Do souboru inc/root uveďte cestu k adresáři, kde se nachází soubor
+        page.php. Cesta musí začínat lomítkem a být relativní vzhledem ke
+        kořenovému adresáři webového serveru. Například pokud má být web
+        hostován na adrese http://www.exmaple.com/proj/iis, do souboru
+        inc/root napište /proj/iis.</li>
+    <li>V souboru .htaccess (v kořenovém adresáři tohoto systému) nahraďte
+        /iis za cestu získanou v minulém bodu.</li>
+    <li>Systém je nyní nastaven a lze se do něj přihlásit výše uvedenými
+        přihlašovacími údaji.</li>
+
+</ul>
+
+</body></html>

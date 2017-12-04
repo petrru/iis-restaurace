@@ -14,6 +14,7 @@ class LogoutPage extends Page
     public function should_print_html()
     {
         unset($_SESSION['employee_id']);
+        unset($_SESSION['last_active']);
         Utils::redirect('login');
         Utils::set_success_message('Byl jste úspěšně odhlášen');
         return false;

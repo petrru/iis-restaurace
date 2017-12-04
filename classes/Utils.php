@@ -24,11 +24,25 @@ class Utils
             self::$logged_user = new Employee();
             return;
         }
+        if ($_SESSION['last_active'] < time() - 15 * 60) {
+            self::set_error_message("Platnost vašeho přihlášení vypršela");
+            self::$logged_user = new Employee();
+            unset($_SESSION['employee_id']);
+            unset($_SESSION['last_active']);
+            return;
+        }
         try {
             self::$logged_user = Employee::get_by_id($_SESSION['employee_id']);
         } catch (NoEntryException $e) {
             self::$logged_user = new Employee();
             unset($_SESSION['employee_id']);
+            unset($_SESSION['last_active']);
+        }
+        if (self::$logged_user->position_id == 4) {
+            self::$logged_user = new Employee();
+            unset($_SESSION['employee_id']);
+            unset($_SESSION['last_active']);
+            return;
         }
     }
 

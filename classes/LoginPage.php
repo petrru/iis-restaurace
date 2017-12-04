@@ -25,11 +25,12 @@ class LoginPage extends Page
         if ($_POST) {
             $user = new Employee();
             $q = $user->select("SELECT employee_id, `password` FROM employees
-                                WHERE username = ?");
+                                WHERE username = ? AND position_id != 4");
             $q->execute([$_POST['username'] ?? '']);
             $q->fetch();
             if (password_verify($_POST['password'] ?? '', $user->password)) {
                 $_SESSION['employee_id'] = $user->employee_id;
+                $_SESSION['last_active'] = time();
                 $url = $_POST['back'] ?? Mapper::url('manage');
                 header("Location:" . $url);
                 return false;
